@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+@import "styles/_main";
+
+hr,
+p {
+  padding: 0;
+  margin: 0;
+}
+
+button,
+input[type="submit"],
+input[type="reset"] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+input {
+  all: unset;
+}
+
+[contenteditable] {
+  outline: 0px solid transparent;
+}

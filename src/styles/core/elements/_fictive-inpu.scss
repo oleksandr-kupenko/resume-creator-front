@@ -1,0 +1,14 @@
+p.fictive-input {
+  min-width: 24px;
+
+  &::placeholder {
+    color: red;
+    font-size: 1.5em;
+  }
+
+  &[contenteditable="true"]:empty:not(:focus-within):before {
+    content: "Contact details";
+    pointer-events: none;
+    display: block; /* For Firefox */
+  }
+}

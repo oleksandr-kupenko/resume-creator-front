@@ -1,0 +1,60 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  hr {
+    border: none;
+    border-top: 0.125rem solid #3596f3;
+    width: 100%;
+  }
+
+  .contacts-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 2.625rem 10px 4.125rem;
+    color: white;
+    background-color: #3596f3;
+
+    &__item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-top: 4px;
+      margin-bottom: 4px;
+
+      .delete-btn {
+        position: absolute;
+        left: -24px;
+      }
+
+      &:not(:last-child) {
+        margin-right: 35px;
+      }
+    }
+  }
+
+  .add-contact {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 17px;
+    background-color: #3596f3;
+
+    &__btn {
+      color: #2253c8;
+      transition: 0.2s;
+
+      &:hover {
+        color: #1b419c;
+      }
+
+      &:disabled {
+        color: #ccc;
+        cursor: auto;
+      }
+    }
+  }
+}

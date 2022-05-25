@@ -1,0 +1,30 @@
+<div *ngIf="isEditMode" class="dropdown-edit">
+  <div
+    class="dropdpwn-wrapper"
+    appBackDrop
+    (clickOutside)="isOpenDropdown = false"
+  >
+    <button
+      class="dropdown-edit__open-btn"
+      (click)="handleOpenDropdown($event)"
+    >
+      <fa-icon class="current-icon" [icon]="currentIcon"></fa-icon>
+    </button>
+    <div *ngIf="isOpenDropdown" class="dropdown-edit__icons-drop-list">
+      <button
+        *ngFor="let icon of iconsList"
+        class="dropdown-edit__icons-drop-list--item"
+        [class.active]="icon === currentIcon"
+        (click)="hanldeSelectIcon(icon, $event)"
+      >
+        <fa-icon [icon]="icon"></fa-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<fa-icon
+  class="current-icon"
+  *ngIf="!isEditMode"
+  [icon]="currentIcon"
+></fa-icon>

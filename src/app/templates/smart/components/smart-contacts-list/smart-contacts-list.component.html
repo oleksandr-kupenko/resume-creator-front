@@ -1,0 +1,51 @@
+<hr class="m-bottom-5" />
+
+<div class="contacts" appBackDrop (clickOutside)="isEditMode = false">
+  <div class="contacts-list" (click)="handleOpenEditMode($event)">
+    <div
+      *ngFor="let contact of contactsList; let idx = index"
+      class="contacts-list__item"
+    >
+      <button
+        *ngIf="isEditMode"
+        class="delete-btn"
+        (click)="handleDelete(idx, $event)"
+      >
+        <app-close-iocn></app-close-iocn>
+      </button>
+
+      <app-smart-contact
+        class="m-right-5"
+        role="button"
+        [isEditMode]="isEditMode"
+        [currentIcon]="contact.icon"
+        (changeIcon)="handleChageIcon(idx, $event)"
+        (click)="handleOpenEditMode($event)"
+      ></app-smart-contact>
+
+      <p
+        contenteditable="true"
+        (input)="handleChangeName(idx, $event)"
+        class="fictive-input"
+        [textContent]="contact.text"
+      >
+        {{ contact.text }}
+      </p>
+    </div>
+  </div>
+  <div *ngIf="isEditMode" class="add-contact">
+    <button
+      class="add-contact__btn"
+      [disabled]="contactsList.length >= 8"
+      (click)="handleAddContact($event)"
+    >
+      <fa-icon
+        class="fa-lg add-contact__btn--icon"
+        [icon]="addButtonIcon"
+      ></fa-icon>
+      Add
+    </button>
+  </div>
+</div>
+
+<hr class="m-top-5" />
