@@ -1,0 +1,33 @@
+.date-range-picker {
+  &__date-value {
+    font-size: 0.9375rem;
+    line-height: 1.1875rem;
+    font-size: 0.9375rem;
+    line-height: 1.1875rem;
+    transition: color 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      color: #959595;
+    }
+  }
+
+  .mat-card {
+    padding: 8px;
+  }
+
+  &__calendar {
+    width: 230px;
+
+    .present-checbox {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      background-color: #e6e6e6;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      position: relative;
+    }
+  }
+}

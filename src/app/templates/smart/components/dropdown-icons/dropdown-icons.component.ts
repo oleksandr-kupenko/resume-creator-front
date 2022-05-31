@@ -15,11 +15,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-smart-contact',
-  templateUrl: './smart-contact.component.html',
-  styleUrls: ['./smart-contact.component.scss'],
+  selector: 'app-dropdown-icons',
+  templateUrl: './dropdown-icons.component.html',
+  styleUrls: ['./dropdown-icons.component.scss'],
 })
-export class SmartContactComponent implements OnInit {
+export class DropdownIconsComponent implements OnInit {
   @Input() isEditMode = false;
   @Input() currentIcon = faEnvelope;
 

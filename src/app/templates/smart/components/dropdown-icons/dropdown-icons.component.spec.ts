@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SmartContactComponent } from './smart-contact.component';
+import { DropdownIconsComponent } from './dropdown-icons.component';
 
 describe('IconsDropdownComponent', () => {
-  let component: SmartContactComponent;
-  let fixture: ComponentFixture<SmartContactComponent>;
+  let component: DropdownIconsComponent;
+  let fixture: ComponentFixture<DropdownIconsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SmartContactComponent],
+      declarations: [DropdownIconsComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SmartContactComponent);
+    fixture = TestBed.createComponent(DropdownIconsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

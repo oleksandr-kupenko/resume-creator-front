@@ -1,0 +1,35 @@
+.add-photo-btn {
+  position: relative;
+  display: block;
+  transition: color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  width: 3.1875rem;
+  height: 3.1875rem;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0.75rem rgb(0 0 0 / 12%);
+  color: #c7c7c7;
+  position: absolute;
+  right: -1.5625rem;
+  top: -1.25rem;
+  font-size: 1.375rem;
+  z-index: 11;
+  cursor: pointer;
+  transform: translateZ(0);
+
+  &:hover {
+    box-shadow: 0 0 0.75rem rgb(0 0 0 / 20%);
+    color: #aeaeae;
+  }
+
+  &__plus {
+    position: absolute;
+    top: 10px;
+    left: 1px;
+    font-size: 17px;
+    border: 2px solid grey;
+    border-radius: 85%;
+    width: 15px;
+    height: 15px;
+    color: gray;
+  }
+}

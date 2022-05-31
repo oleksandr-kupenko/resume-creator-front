@@ -1,1 +1,66 @@
-<p>smart-template-header works!</p>
+<section
+  class="smart-header"
+  appBackDrop
+  [class.without-avatar]="!isAvatar"
+  (click)="isEditMode = true"
+  (clickOutside)="this.isEditMode = false"
+>
+  <div *ngIf="isAvatar" class="avatar">
+    <button
+      *ngIf="isEditMode"
+      class="delete-btn"
+      (click)="$event.stopPropagation(); isAvatar = false"
+    >
+      <app-close-iocn></app-close-iocn>
+    </button>
+    <div class="avatar__img" (click)="inputFile.click()">
+      <app-no-avatar-iocn *ngIf="!avatarFile"></app-no-avatar-iocn>
+      <img *ngIf="avatarFile" [src]="avatarFile" alt="Avatar" />
+
+      <span class="avatar__img--text">Upload photo</span>
+      <input
+        #inputFile
+        class="avatar__img--input"
+        type="file"
+        accept=".jpg, .jpeg, .png, .webp"
+        (change)="handleSelectFile($event)"
+      />
+    </div>
+  </div>
+  <div class="smart-header__text" [class.without-avatar]="!isAvatar">
+    <h2
+      contenteditable="true"
+      appFictiveInput
+      [fictivePlaceholder]="'Your name'"
+      [textContent]="name"
+      (input)="handleChangeField('name', $event)"
+    ></h2>
+    <div class="smart-header__text--role" [class.without-avatar]="!isAvatar">
+      <ng-container *ngIf="isRole">
+        <button
+          *ngIf="isEditMode"
+          class="delete-btn"
+          [class.without-avatar]="!isAvatar"
+          (click)="$event.stopPropagation(); isRole = false"
+        >
+          <app-close-iocn></app-close-iocn>
+        </button>
+        <h3
+          appFictiveInput
+          [fictivePlaceholder]="'Desired role'"
+          [textContent]="role"
+          (input)="handleChangeField('role', $event)"
+        ></h3>
+      </ng-container>
+      <app-add-btn
+        *ngIf="!isRole && isEditMode"
+        [isThreeDots]="true"
+        (click)="$event.stopPropagation(); isRole = true"
+      ></app-add-btn>
+    </div>
+  </div>
+  <app-add-photo-btn
+    *ngIf="!isAvatar && isEditMode"
+    (click)="$event.stopPropagation(); isAvatar = true"
+  ></app-add-photo-btn>
+</section>

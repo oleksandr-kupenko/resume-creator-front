@@ -2,11 +2,24 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 5px 0;
+  border: 0.0625rem solid transparent;
+  transition: border-color 0.1s ease-in-out;
+
+  &:hover {
+    border: 0.0625rem solid #3596f3;
+    border-radius: 0.25rem;
+  }
 
   hr {
     border: none;
     border-top: 0.125rem solid #3596f3;
     width: 100%;
+  }
+
+  .contacts-wrapper {
+    margin-left: -1.5rem;
+    width: calc(100% + 3rem);
   }
 
   .contacts-list {
@@ -33,6 +46,10 @@
       &:not(:last-child) {
         margin-right: 35px;
       }
+
+      app-dropdown-icons {
+        margin-right: 2px;
+      }
     }
   }
 
@@ -42,19 +59,5 @@
     width: 100%;
     padding-bottom: 17px;
     background-color: #3596f3;
-
-    &__btn {
-      color: #2253c8;
-      transition: 0.2s;
-
-      &:hover {
-        color: #1b419c;
-      }
-
-      &:disabled {
-        color: #ccc;
-        cursor: auto;
-      }
-    }
   }
 }

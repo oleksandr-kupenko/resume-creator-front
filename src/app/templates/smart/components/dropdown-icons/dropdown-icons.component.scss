@@ -1,13 +1,14 @@
-.current-icon {
-  font-size: 1.3125rem;
-  padding-right: 12px;
-}
-
 :host {
   .dropdown-edit {
     position: relative;
     display: flex;
     align-items: center;
+
+    .current-icon {
+      font-size: 1.1125rem;
+      padding-right: 12px;
+      min-width: 34px;
+    }
 
     &__delete-btn {
       margin-right: 8px;
@@ -15,23 +16,26 @@
 
     &__open-btn {
       position: relative;
-
-      &::before {
-        content: "";
-        height: 0;
-        width: 0;
-        border-left: 0.25rem solid transparent;
-        border-right: 0.25rem solid transparent;
-        border-top: 0.4rem solid #fff;
-        position: absolute;
-        right: 2px;
-        bottom: 5px;
-      }
+      min-width: 34px;
 
       &:hover {
         color: bisque;
         &:before {
           border-top-color: bisque;
+        }
+      }
+
+      &.edit {
+        &::before {
+          content: "";
+          height: 0;
+          width: 0;
+          border-left: 0.25rem solid transparent;
+          border-right: 0.25rem solid transparent;
+          border-top: 0.4rem solid #fff;
+          position: absolute;
+          right: 2px;
+          bottom: 5px;
         }
       }
     }

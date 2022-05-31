@@ -1,4 +1,61 @@
 @import "styles/_main";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+:root {
+  --main-color: #3596f3;
+  --btn-color: #1b87f1;
+  --btn-hover-color: #0d6dcc;
+  --dark-btn-color: #2253c8;
+  --dark-btn-hover-color: #1b419c;
+  --placeholder: "";
+}
+
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  min-height: 100%;
+  touch-action: pan-y;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  background-color: #eeeff0;
+}
+
+body {
+  color: #484848;
+  box-sizing: border-box;
+}
 
 hr,
 p {
@@ -24,4 +81,13 @@ input {
 
 [contenteditable] {
   outline: 0px solid transparent;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

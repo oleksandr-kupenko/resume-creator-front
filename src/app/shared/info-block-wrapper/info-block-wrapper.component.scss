@@ -1,0 +1,83 @@
+.info-block {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 553px;
+  min-height: 101px;
+  padding: 0.1875rem 0.3125rem 0.5rem 1.5625rem;
+  border: 0.0625rem solid transparent;
+  transition: border-color 0.1s ease-in-out;
+  background: #fff;
+  border-radius: 0.25rem;
+
+  &:hover {
+    border: 0.0625rem solid #3596f3;
+  }
+
+  &.edit {
+    z-index: 11;
+    box-shadow: 0 0 0.75rem rgb(0 0 0 / 12%);
+    &:hover {
+      border: 0.0625rem solid transparent;
+    }
+  }
+
+  &__order-buttons {
+    position: absolute;
+    top: 50%;
+    width: 0;
+    left: -2.0625rem;
+    padding: 0.625rem 0;
+    transform: translateY(-50%);
+
+    button {
+      width: 1.875rem;
+      height: 1.875rem;
+      transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+      display: block;
+      color: #afafaf;
+      background: #fff;
+      border-radius: 50%;
+      position: relative;
+      text-align: center;
+      font-size: 1.125rem;
+      margin: 0.625rem 0;
+      box-shadow: 0 0 0.25rem rgb(0 0 0 / 19%);
+      cursor: pointer;
+
+      &:hover {
+        background: #1b87f1;
+        color: #fff;
+        box-shadow: 0 0 0.25rem rgb(0 0 0 / 19%);
+      }
+
+      &:disabled {
+        display: block !important;
+        pointer-events: none;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  &__delete-btn {
+    transition: color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    width: 3.1875rem;
+    height: 3.1875rem;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0.75rem rgb(0 0 0 / 12%);
+    color: #c7c7c7;
+    position: absolute;
+    right: -1.5625rem;
+    top: -1.25rem;
+    font-size: 1.375rem;
+    z-index: 11;
+    cursor: pointer;
+    transform: translateZ(0);
+
+    &:hover {
+      box-shadow: 0 0 0.75rem rgb(0 0 0 / 20%);
+      color: #aeaeae;
+    }
+  }
+}

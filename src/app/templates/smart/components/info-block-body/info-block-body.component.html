@@ -1,0 +1,34 @@
+<div class="info-block-body">
+  <ng-container *ngFor="let item of infoContent">
+    <div *ngIf="!item.isDefaultItemForExample" class="info-block-body__item">
+      <ng-container>
+        <div
+          class="row"
+          *ngFor="let row of item.rows; let idx = index"
+          [class.first-row]="row.isTitle"
+        >
+          <ng-container *ngIf="idx == 0">
+            <button
+              *ngIf="isEditMode"
+              class="delete-btn first-row__delete-btn"
+              (click)="handleDelete(idx, $event)"
+            >
+              <app-close-iocn></app-close-iocn>
+            </button>
+            <fa-icon class="first-row__icon" [icon]="checkIcon"></fa-icon>
+          </ng-container>
+
+          <div *ngIf="row.date" class="first-row__date">
+            <app-data-range-picker></app-data-range-picker>
+          </div>
+          <p
+            appFictiveInput
+            [class.with-title]="true"
+            [fictivePlaceholder]="row.placeholder"
+          ></p>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+  <app-add-btn *ngIf="isEditMode" (click)="handleAddItem()"></app-add-btn>
+</div>

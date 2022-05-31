@@ -1,0 +1,81 @@
+<div class="date-range-picker">
+  <span
+    class="date-range-picker__date-value"
+    role="button"
+    cdkOverlayOrigin
+    #trigger="cdkOverlayOrigin"
+    (click)="isDatePickerFromOpen = !isDatePickerFromOpen"
+  >
+    {{ fromDate | date: "MM/YY" }}
+  </span>
+  {{ " - " }}
+  <span
+    class="date-range-picker__date-value"
+    role="button"
+    cdkOverlayOrigin
+    #trigger="cdkOverlayOrigin"
+    (click)="isDatePickerToOpen = !isDatePickerToOpen"
+  >
+    {{ isToDatePrecent ? "precent" : (toDate | date: "MM/YY") }}
+  </span>
+
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="isDatePickerFromOpen"
+    [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
+    [cdkConnectedOverlayHasBackdrop]="true"
+    (backdropClick)="isDatePickerFromOpen = false"
+  >
+    <div class="date-range-picker__calendar">
+      <mat-card>
+        <mat-calendar
+          class="mat-calendar"
+          startView="multi-year"
+          endView="multi-month"
+          [maxDate]="todayDate"
+          [minDate]="oldestDate"
+          (yearSelected)="handleSetDate($event, 'from', 'year')"
+          (monthSelected)="handleSetDate($event, 'from', 'month')"
+          (backdropClick)="isDatePickerFromOpen = false"
+        ></mat-calendar>
+      </mat-card>
+    </div>
+  </ng-template>
+
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="isDatePickerToOpen"
+    [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
+    [cdkConnectedOverlayHasBackdrop]="true"
+    (backdropClick)="isDatePickerToOpen = false"
+  >
+    <div class="date-range-picker__calendar">
+      <mat-card>
+        <mat-calendar
+          class="mat-calendar"
+          startView="multi-year"
+          endView="multi-month"
+          [class.disabled]="isToDatePrecent"
+          [maxDate]="todayDate"
+          [minDate]="fromDate"
+          (yearSelected)="handleSetDate($event, 'to', 'year')"
+          (monthSelected)="handleSetDate($event, 'to', 'month')"
+          (backdropClick)="isDatePickerFromOpen = false"
+        ></mat-calendar>
+
+        <div class="present-checbox">
+          <span>present</span>
+          <mat-slide-toggle
+            [checked]="isToDatePrecent"
+            [color]="checkBoxColor"
+            (change)="isToDatePrecent = $event.checked"
+          >
+          </mat-slide-toggle>
+          {{ isToDatePrecent }}
+        </div>
+      </mat-card>
+    </div>
+  </ng-template>
+</div>

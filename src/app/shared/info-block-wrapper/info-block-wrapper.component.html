@@ -1,0 +1,25 @@
+<div
+  class="info-block"
+  appBackDrop
+  [class.edit]="isEditMode"
+  (clickOutside)="isEditMode = false"
+  (click)="isEditMode = true"
+>
+  <ng-container *ngIf="isEditMode">
+    <div class="info-block__order-buttons">
+      <button class="info-block__order-buttons--top-btn">
+        <fa-icon [icon]="arrowTop"></fa-icon>
+      </button>
+      <button class="info-block__order-buttons--bottom-btn">
+        <fa-icon [icon]="arrowDown"></fa-icon>
+      </button>
+    </div>
+    <button class="info-block__delete-btn">
+      <fa-icon [icon]="cartButton"></fa-icon>
+    </button>
+  </ng-container>
+
+  <ng-container
+    *ngTemplateOutlet="refToHimself; context: { isEditMode: isEditMode }"
+  ></ng-container>
+</div>

@@ -1,4 +1,4 @@
-<div *ngIf="isEditMode" class="dropdown-edit">
+<div class="dropdown-edit">
   <div
     class="dropdpwn-wrapper"
     appBackDrop
@@ -6,6 +6,7 @@
   >
     <button
       class="dropdown-edit__open-btn"
+      [class.edit]="isEditMode"
       (click)="handleOpenDropdown($event)"
     >
       <fa-icon class="current-icon" [icon]="currentIcon"></fa-icon>
@@ -22,9 +23,3 @@
     </div>
   </div>
 </div>
-
-<fa-icon
-  class="current-icon"
-  *ngIf="!isEditMode"
-  [icon]="currentIcon"
-></fa-icon>

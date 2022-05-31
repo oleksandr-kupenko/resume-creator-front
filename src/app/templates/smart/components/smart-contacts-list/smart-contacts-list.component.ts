@@ -13,7 +13,6 @@ import {
 })
 export class SmartContactsListComponent implements OnInit {
   public isEditMode = false;
-  public addButtonIcon = faPlusCircle;
 
   public contactsList = [
     { icon: faPhone, text: 'fdf', isInputEdit: false, isOpenDropdown: true },
@@ -57,9 +56,6 @@ export class SmartContactsListComponent implements OnInit {
   }
 
   handleOpenEditMode(event: Event) {
-    if (!this.isEditMode) {
-      event.stopPropagation();
-      this.isEditMode = true;
-    }
+    this.isEditMode = true;
   }
 }

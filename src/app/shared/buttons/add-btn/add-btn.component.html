@@ -1,0 +1,7 @@
+<button class="add-btn" [class.darker]="isDarker" [disabled]="disabled">
+  <fa-icon
+    class="fa-lg add-contact__btn--icon"
+    [icon]="addButtonIcon"
+  ></fa-icon>
+  Add{{ isThreeDots ? "..." : "" }}
+</button>

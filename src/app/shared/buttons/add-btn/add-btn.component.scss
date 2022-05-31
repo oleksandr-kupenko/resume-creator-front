@@ -1,0 +1,41 @@
+:host {
+  .add-btn {
+    font-weight: 600;
+    color: var(--btn-color);
+    transition: 0.2s;
+    fa-icon {
+      color: var(--btn-color);
+      transition: 0.2s;
+    }
+
+    &:hover {
+      color: var(--btn-hover-color);
+      fa-icon {
+        color: var(--btn-hover-color);
+      }
+    }
+
+    &:disabled {
+      color: #ccc !important;
+      cursor: auto;
+      fa-icon {
+        color: #ccc !important;
+        cursor: auto;
+      }
+    }
+
+    &.darker {
+      color: var(--dark-btn-color);
+      fa-icon {
+        color: var(--dark-btn-color);
+      }
+
+      &:hover {
+        color: var(--dark-btn-hover-color);
+        fa-icon {
+          color: var(--dark-btn-hover-color);
+        }
+      }
+    }
+  }
+}
