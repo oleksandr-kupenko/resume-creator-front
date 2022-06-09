@@ -1,0 +1,27 @@
+<div class="info-block-body skill">
+  <ng-container *ngFor="let item of data.data.items; let idx = index">
+    <div class="info-block-body__item">
+      <div class="row">
+        <button
+          *ngIf="isEditMode"
+          class="delete-btn row__delete-btn"
+          (click)="handleDelete(idx, $event)"
+        >
+          <app-close-iocn></app-close-iocn>
+        </button>
+
+        <p
+          appFictiveInput
+          class="title"
+          [class.filled]="item.name.length"
+          [textContent]="item.name"
+          [fictivePlaceholder]="'Skill'"
+          (input)="handleChangeValue(idx, 'institution', $event)"
+        ></p>
+
+        <div class="row__progress">test</div>
+      </div>
+    </div>
+  </ng-container>
+  <app-add-btn *ngIf="isEditMode" (click)="handleAddItem()"></app-add-btn>
+</div>

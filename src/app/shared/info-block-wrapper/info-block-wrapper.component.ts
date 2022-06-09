@@ -18,7 +18,7 @@ import {
   styleUrls: ['./info-block-wrapper.component.scss'],
 })
 export class InfoBlockWrapperComponent implements OnInit {
-  @Input() refToHimself!: TemplateRef<any>;
+  @Input() contextForHimself!: TemplateRef<any>;
 
   public isEditMode = false;
 

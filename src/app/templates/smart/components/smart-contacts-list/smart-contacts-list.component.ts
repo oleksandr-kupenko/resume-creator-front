@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import {
-  faEnvelope,
-  faPhone,
-  faPlusCircle,
-  IconDefinition,
-} from '@fortawesome/free-solid-svg-icons';
+  CONTACT_ICON,
+  ResumeContacts,
+} from 'src/app/templates/resume.interface';
 
 @Component({
   selector: 'app-smart-contacts-list',
@@ -14,22 +13,39 @@ import {
 export class SmartContactsListComponent implements OnInit {
   public isEditMode = false;
 
-  public contactsList = [
-    { icon: faPhone, text: 'fdf', isInputEdit: false, isOpenDropdown: true },
-    { icon: faEnvelope, text: '', isInputEdit: false, isOpenDropdown: false },
-    { icon: faEnvelope, text: '', isInputEdit: false, isOpenDropdown: false },
+  public contactsList: Array<ContactWithOptiosn> = [
+    {
+      icon: CONTACT_ICON.faPhone,
+      text: 'fdf',
+      isInputEdit: false,
+      isOpenDropdown: true,
+    },
+    {
+      icon: CONTACT_ICON.faEnvelope,
+      text: '',
+      isInputEdit: false,
+      isOpenDropdown: false,
+    },
+    {
+      icon: CONTACT_ICON.faEnvelope,
+      text: '',
+      isInputEdit: false,
+      isOpenDropdown: false,
+    },
   ];
 
   constructor() {}
 
   ngOnInit(): void {}
 
+  public icons = {};
+
   public handleDelete(index: number, event: Event) {
     event.stopPropagation();
     this.contactsList.splice(index, 1);
   }
 
-  public handleChageIcon(index: number, newIcon: IconDefinition) {
+  public handleChageIcon(index: number, newIcon: CONTACT_ICON) {
     this.contactsList[index].icon = newIcon;
   }
 
@@ -48,7 +64,7 @@ export class SmartContactsListComponent implements OnInit {
   public handleAddContact(event: Event) {
     event.stopPropagation();
     this.contactsList.push({
-      icon: faPhone,
+      icon: CONTACT_ICON.faPhone,
       text: '',
       isInputEdit: false,
       isOpenDropdown: false,
@@ -59,3 +75,8 @@ export class SmartContactsListComponent implements OnInit {
     this.isEditMode = true;
   }
 }
+
+type ContactWithOptiosn = ResumeContacts & {
+  isInputEdit: boolean;
+  isOpenDropdown: boolean;
+};

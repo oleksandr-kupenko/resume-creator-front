@@ -1,14 +1,15 @@
 <div class="date-range-picker">
   <span
+    *ngIf="!isOnlyEndDate"
     class="date-range-picker__date-value"
     role="button"
     cdkOverlayOrigin
     #trigger="cdkOverlayOrigin"
     (click)="isDatePickerFromOpen = !isDatePickerFromOpen"
   >
-    {{ fromDate | date: "MM/YY" }}
+    {{ isOnlyYear ? (fromDate | date: "YYYY") : (fromDate | date: "MM/YYYY") }}
   </span>
-  {{ " - " }}
+  {{ !isOnlyEndDate ? " - " : "" }}
   <span
     class="date-range-picker__date-value"
     role="button"
@@ -16,10 +17,17 @@
     #trigger="cdkOverlayOrigin"
     (click)="isDatePickerToOpen = !isDatePickerToOpen"
   >
-    {{ isToDatePrecent ? "precent" : (toDate | date: "MM/YY") }}
+    {{
+      isToDatePrecent
+        ? "precent"
+        : isOnlyYear
+        ? (toDate | date: "YYYY")
+        : (toDate | date: "MM/YYYY")
+    }}
   </span>
 
   <ng-template
+    *ngIf="!isOnlyEndDate"
     cdkConnectedOverlay
     [cdkConnectedOverlayOrigin]="trigger"
     [cdkConnectedOverlayOpen]="isDatePickerFromOpen"
@@ -33,7 +41,8 @@
           class="mat-calendar"
           startView="multi-year"
           endView="multi-month"
-          [maxDate]="todayDate"
+          [selected]="fromDate"
+          [maxDate]="toDate"
           [minDate]="oldestDate"
           (yearSelected)="handleSetDate($event, 'from', 'year')"
           (monthSelected)="handleSetDate($event, 'from', 'month')"
@@ -58,22 +67,22 @@
           startView="multi-year"
           endView="multi-month"
           [class.disabled]="isToDatePrecent"
+          [selected]="toDate"
           [maxDate]="todayDate"
-          [minDate]="fromDate"
+          [minDate]="isOnlyEndDate ? oldestDate : fromDate"
           (yearSelected)="handleSetDate($event, 'to', 'year')"
           (monthSelected)="handleSetDate($event, 'to', 'month')"
           (backdropClick)="isDatePickerFromOpen = false"
         ></mat-calendar>
 
-        <div class="present-checbox">
+        <div *ngIf="!isOnlyEndDate" class="present-checbox">
           <span>present</span>
           <mat-slide-toggle
             [checked]="isToDatePrecent"
             [color]="checkBoxColor"
-            (change)="isToDatePrecent = $event.checked"
+            (change)="handleSetPercentData($event.checked)"
           >
           </mat-slide-toggle>
-          {{ isToDatePrecent }}
         </div>
       </mat-card>
     </div>

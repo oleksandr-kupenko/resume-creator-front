@@ -12,8 +12,6 @@ export class SmartTemplateHeaderComponent implements OnInit {
   public isAvatar = true;
   public isRole = true;
 
-  public currentColor = '#3596f3';
-
   public name: string | null = null;
   public role: string | null = null;
   public avatarLink: string | null = null;

@@ -9,7 +9,10 @@
       [class.edit]="isEditMode"
       (click)="handleOpenDropdown($event)"
     >
-      <fa-icon class="current-icon" [icon]="currentIcon"></fa-icon>
+      <fa-icon
+        class="current-icon"
+        [icon]="iconsDefinitions[currentIcon]"
+      ></fa-icon>
     </button>
     <div *ngIf="isOpenDropdown" class="dropdown-edit__icons-drop-list">
       <button
@@ -18,7 +21,7 @@
         [class.active]="icon === currentIcon"
         (click)="hanldeSelectIcon(icon, $event)"
       >
-        <fa-icon [icon]="icon"></fa-icon>
+        <fa-icon [icon]="iconsDefinitions[icon]"></fa-icon>
       </button>
     </div>
   </div>

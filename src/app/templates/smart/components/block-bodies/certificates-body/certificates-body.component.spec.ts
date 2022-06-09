@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DropdownIconsComponent } from './dropdown-icons.component';
+import { CertificatesBodyComponent } from './certificates-body.component';
 
-describe('IconsDropdownComponent', () => {
-  let component: DropdownIconsComponent;
-  let fixture: ComponentFixture<DropdownIconsComponent>;
+describe('EducationComponent', () => {
+  let component: CertificatesBodyComponent;
+  let fixture: ComponentFixture<CertificatesBodyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DropdownIconsComponent],
+      declarations: [CertificatesBodyComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DropdownIconsComponent);
+    fixture = TestBed.createComponent(CertificatesBodyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

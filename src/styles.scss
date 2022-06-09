@@ -10,6 +10,10 @@
   --placeholder: "";
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body,
 p,
@@ -54,7 +58,6 @@ body {
 
 body {
   color: #484848;
-  box-sizing: border-box;
 }
 
 hr,

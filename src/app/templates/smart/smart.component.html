@@ -3,12 +3,127 @@
     <app-smart-template-header></app-smart-template-header>
     <app-smart-contacts-list></app-smart-contacts-list>
     <div class="smart-template__body">
-      <app-info-block-wrapper [refToHimself]="infoBlockContent">
-        <ng-template #infoBlockContent let-isEditMode="isEditMode">
-          <app-info-block-head></app-info-block-head>
-          <app-info-block-body [isEditMode]="isEditMode"></app-info-block-body>
-        </ng-template>
-      </app-info-block-wrapper>
+      <ng-container *ngFor="let infoBlock of infoBlocks | keyvalue">
+        <container-element [ngSwitch]="infoBlock.value.type">
+          <ng-container *ngSwitchCase="BT.education">
+            <ng-container
+              *ngTemplateOutlet="education; context: { infoBlock: infoBlock }"
+            ></ng-container>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="BT.experience">
+            <ng-container
+              *ngTemplateOutlet="experience; context: { infoBlock: infoBlock }"
+            ></ng-container>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="BT.certificates">
+            <ng-container
+              *ngTemplateOutlet="
+                certificates;
+                context: { infoBlock: infoBlock }
+              "
+            ></ng-container>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="BT.summary">
+            <ng-container
+              *ngTemplateOutlet="summary; context: { infoBlock: infoBlock }"
+            ></ng-container>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="BT.profskills">
+            <ng-container
+              *ngTemplateOutlet="profskills; context: { infoBlock: infoBlock }"
+            ></ng-container>
+          </ng-container>
+        </container-element>
+      </ng-container>
     </div>
   </app-a4-wrapper>
 </div>
+
+<ng-template #education let-infoBlock="infoBlock">
+  <app-info-block-wrapper [contextForHimself]="infoBlockContent">
+    <ng-template #infoBlockContent let-isEditMode="isEditMode">
+      <app-info-block-head
+        [placeholder]="'Education'"
+        [blockData]="infoBlock.value"
+        (changeTitle)="handleSetBlockChanges($event, infoBlock.key)"
+      ></app-info-block-head>
+      <app-education-body
+        [data]="infoBlock.value"
+        [isEditMode]="isEditMode"
+        (changeBlcok)="handleSetBlockChanges($event, infoBlock.key)"
+      ></app-education-body>
+    </ng-template>
+  </app-info-block-wrapper>
+</ng-template>
+
+<ng-template #experience let-infoBlock="infoBlock">
+  <app-info-block-wrapper [contextForHimself]="infoBlockContent">
+    <ng-template #infoBlockContent let-isEditMode="isEditMode">
+      <app-info-block-head
+        [placeholder]="'Work experience'"
+        [blockData]="infoBlock.value"
+        (changeTitle)="handleSetBlockChanges($event, infoBlock.key)"
+      ></app-info-block-head>
+      <app-experience-body
+        [data]="infoBlock.value"
+        [isEditMode]="isEditMode"
+        (changeBlcok)="handleSetBlockChanges($event, infoBlock.key)"
+      ></app-experience-body>
+    </ng-template>
+  </app-info-block-wrapper>
+</ng-template>
+
+<ng-template #certificates let-infoBlock="infoBlock">
+  <app-info-block-wrapper [contextForHimself]="infoBlockContent">
+    <ng-template #infoBlockContent let-isEditMode="isEditMode">
+      <app-info-block-head
+        [placeholder]="'Certificates'"
+        [blockData]="infoBlock.value"
+        (changeTitle)="handleSetBlockChanges($event, infoBlock.key)"
+      ></app-info-block-head>
+      <app-certificates-body
+        [data]="infoBlock.value"
+        [isEditMode]="isEditMode"
+        (changeBlcok)="handleSetBlockChanges($event, infoBlock.key)"
+      ></app-certificates-body>
+    </ng-template>
+  </app-info-block-wrapper>
+</ng-template>
+
+<ng-template #summary let-infoBlock="infoBlock">
+  <app-info-block-wrapper [contextForHimself]="infoBlockContent">
+    <ng-template #infoBlockContent let-isEditMode="isEditMode">
+      <app-info-block-head
+        [placeholder]="'Summary'"
+        [blockData]="infoBlock.value"
+        (changeTitle)="handleSetBlockChanges($event, infoBlock.key)"
+      ></app-info-block-head>
+      <app-summary-body
+        [data]="infoBlock.value"
+        [isEditMode]="isEditMode"
+        (changeBlcok)="handleSetBlockChanges($event, infoBlock.key)"
+      ></app-summary-body>
+    </ng-template>
+  </app-info-block-wrapper>
+</ng-template>
+
+<ng-template #profskills let-infoBlock="infoBlock">
+  <app-info-block-wrapper [contextForHimself]="infoBlockContent">
+    <ng-template #infoBlockContent let-isEditMode="isEditMode">
+      <app-info-block-head
+        [placeholder]="'Profskills'"
+        [blockData]="infoBlock.value"
+        (changeTitle)="handleSetBlockChanges($event, infoBlock.key)"
+      ></app-info-block-head>
+      <app-profskills-body
+        [data]="infoBlock.value"
+        [isEditMode]="isEditMode"
+        (changeBlcok)="handleSetBlockChanges($event, infoBlock.key)"
+      ></app-profskills-body>
+    </ng-template>
+  </app-info-block-wrapper>
+</ng-template>

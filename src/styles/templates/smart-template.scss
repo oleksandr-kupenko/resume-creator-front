@@ -27,7 +27,7 @@
         float: right;
         margin-left: auto;
         max-width: 44%;
-        padding: 0.1875rem 0 0.1875rem 1.5625rem;
+        padding: 0 0 0.1875rem 1.5625rem;
         margin-bottom: -0.3125rem;
         color: #484848;
       }
@@ -63,10 +63,30 @@
         }
       }
     }
+  }
+
+  app-add-btn {
+    display: block;
+    padding-top: 1rem;
+  }
+
+  &.skill {
+    border-left: none;
+    padding-left: 0.3625rem;
+
+    .info-block-body__item {
+      .row {
+        display: flex;
+        justify-content: space-between;
+
+        &__delete-btn {
+          left: -2.6rem;
+        }
+      }
+    }
 
     app-add-btn {
-      display: block;
-      padding-bottom: 1.25rem;
+      margin-left: -2.6rem;
     }
   }
 }

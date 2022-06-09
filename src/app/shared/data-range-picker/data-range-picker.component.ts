@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { format } from 'date-fns';
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   MomentDateAdapter,
@@ -13,6 +13,7 @@ import {
 import { Moment } from 'moment';
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
+import { Period } from 'src/app/templates/resume.interface';
 
 const moment = _rollupMoment || _moment;
 
@@ -33,9 +34,6 @@ export const MY_FORMATS = {
   templateUrl: './data-range-picker.component.html',
   styleUrls: ['./data-range-picker.component.scss'],
   providers: [
-    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
-    // application's root module. We provide it at the component level here, due to limitations of
-    // our example generation script.
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
@@ -46,6 +44,20 @@ export const MY_FORMATS = {
   ],
 })
 export class DataRangePickerComponent implements OnInit {
+  @Input() propsFromDate!: string | null;
+  @Input() propsToDate!: string | null;
+
+  @Input() isOnlyYear = false;
+  @Input() isOnlyEndDate = false;
+
+  @Output() periodChange = new EventEmitter<Period>();
+  @Output() dateChange = new EventEmitter<string>(); //for "isOnlyEndDate mode"
+
+  public fromDate!: Date;
+  public toDate!: Date;
+
+  public defaultFromDate = new Date(`01.01.${new Date().getFullYear() - 5}`);
+
   public isDatePickerFromOpen = false;
   public isDatePickerToOpen = false;
 
@@ -55,33 +67,45 @@ export class DataRangePickerComponent implements OnInit {
 
   public todayDate = new Date();
   public oldestDate = new Date('01.01.1935');
-  public futureDateForDisable = new Date(
-    new Date().setFullYear(new Date().getFullYear() + 1)
-  );
-
-  public fromDate = new Date(`01.01.${new Date().getFullYear() - 5}`);
-  public toDate = new Date();
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.propsFromDate, this.propsToDate);
+    this.setFirstDate();
+  }
+
+  private setFirstDate() {
+    this.fromDate = this.propsFromDate
+      ? new Date(this.propsFromDate)
+      : this.defaultFromDate;
+
+    this.toDate =
+      this.propsToDate && this.propsToDate !== '@now'
+        ? new Date(this.propsToDate)
+        : new Date();
+
+    this.isToDatePrecent = this.propsToDate === '@now';
+  }
 
   public handleSetDate(
     normalizedYear: Moment,
     processedValue: 'from' | 'to',
     period: 'month' | 'year'
   ) {
-    console.log(normalizedYear.toDate());
     if (processedValue == 'from') {
       if (period == 'year') {
         this.fromDate = new Date(
           this.fromDate.setFullYear(normalizedYear.toDate().getFullYear())
         );
+        this.isOnlyYear &&
+          (this.closeDatePicker(), this.sendOutputNewDateValue());
       } else if (period == 'month') {
         this.fromDate = new Date(
           this.fromDate.setMonth(normalizedYear.toDate().getMonth())
         );
-        this.isDatePickerFromOpen = false;
+        this.sendOutputNewDateValue();
+        this.closeDatePicker();
       }
       return;
     }
@@ -91,12 +115,51 @@ export class DataRangePickerComponent implements OnInit {
         this.toDate = new Date(
           this.toDate.setFullYear(normalizedYear.toDate().getFullYear())
         );
+        this.isOnlyYear &&
+          (this.closeDatePicker(), this.sendOutputNewDateValue());
       } else if (period == 'month') {
         this.toDate = new Date(
           this.toDate.setMonth(normalizedYear.toDate().getMonth())
         );
-        this.isDatePickerToOpen = false;
+        this.sendOutputNewDateValue();
+        this.closeDatePicker();
       }
     }
+
+    this.todayDate = new Date();
+  }
+
+  public handleSetPercentData(checked: boolean) {
+    this.toDate = this.todayDate;
+    this.isToDatePrecent = checked;
+    this.sendOutputNewDateValue();
+  }
+
+  private closeDatePicker() {
+    this.isDatePickerToOpen = false;
+    this.isDatePickerFromOpen = false;
+  }
+
+  private sendOutputNewDateValue() {
+    if (this.isOnlyEndDate) {
+      this.sendOutputEndDate();
+    } else {
+      this.sendOutputPeriod();
+    }
+  }
+
+  private sendOutputPeriod() {
+    const endDate = this.isToDatePrecent
+      ? '@now'
+      : format(this.toDate, 'MM/dd/yyyy');
+
+    this.periodChange.emit({
+      start: format(this.fromDate, 'MM/dd/yyyy'),
+      end: endDate,
+    });
+  }
+
+  private sendOutputEndDate() {
+    this.dateChange.emit(format(this.toDate, 'MM/dd/yyyy'));
   }
 }

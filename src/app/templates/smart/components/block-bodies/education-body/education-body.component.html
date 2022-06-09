@@ -1,0 +1,44 @@
+<div class="info-block-body">
+  <ng-container *ngFor="let item of data.data.items; let idx = index">
+    <div class="info-block-body__item">
+      <div class="row row-title">
+        <button
+          *ngIf="isEditMode"
+          class="delete-btn row__delete-btn"
+          (click)="handleDelete(idx, $event)"
+        >
+          <app-close-iocn></app-close-iocn>
+        </button>
+        <fa-icon class="row__icon" [icon]="checkIcon"></fa-icon>
+
+        <div class="row__date">
+          <app-data-range-picker
+            [propsFromDate]="item.period.start"
+            [propsToDate]="item.period.end"
+            [isOnlyYear]="true"
+            (periodChange)="handlePeriodChange(idx, $event)"
+          ></app-data-range-picker>
+        </div>
+        <p
+          appFictiveInput
+          class="title"
+          [class.filled]="item.institution.length"
+          [textContent]="item.institution"
+          [fictivePlaceholder]="'School / University'"
+          (input)="handleChangeValue(idx, 'institution', $event)"
+        ></p>
+      </div>
+
+      <div class="row">
+        <p
+          appFictiveInput
+          [class.filled]="item.description.length"
+          [textContent]="item.description"
+          [fictivePlaceholder]="'Degree and field of study'"
+          (input)="handleChangeValue(idx, 'description', $event)"
+        ></p>
+      </div>
+    </div>
+  </ng-container>
+  <app-add-btn *ngIf="isEditMode" (click)="handleAddItem()"></app-add-btn>
+</div>

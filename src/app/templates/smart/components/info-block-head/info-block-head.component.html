@@ -1,9 +1,13 @@
 <div role="button" class="info-block-header">
-  <fa-icon class="info-block-header__icon" [icon]="headIcon"></fa-icon>
+  <fa-icon
+    class="info-block-header__icon"
+    [icon]="iconsDefinitions[blockData.type]"
+  ></fa-icon>
   <h3
     appFictiveInput
     class="info-block-header__title"
-    [textContent]="headTitle"
-    [fictivePlaceholder]="headPlaceholder"
+    [textContent]="blockData.data.title"
+    [fictivePlaceholder]="placeholder"
+    (input)="handleChangeTitle($event)"
   ></h3>
 </div>

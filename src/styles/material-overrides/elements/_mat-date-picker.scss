@@ -46,6 +46,15 @@
   margin: 0 !important;
 }
 
+.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  border: none !important;
+}
+
+.mat-calendar-body-today.mat-calendar-body-selected,
+.mat-calendar-body-cell-content.mat-focus-indicator {
+  box-shadow: none !important;
+}
+
 .disabled {
   .mat-calendar-body-cell-content.mat-focus-indicator {
     color: rgba(0, 0, 0, 0.38) !important;
@@ -56,7 +65,7 @@
     pointer-events: none !important;
   }
 
-  .mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
-    border: none;
+  .mat-calendar-body-selected {
+    background-color: transparent !important;
   }
 }

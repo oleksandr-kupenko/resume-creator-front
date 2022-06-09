@@ -1,12 +1,6 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { InfoBlockData } from 'src/app/templates/resume.interface';
 
 @Component({
   selector: 'app-info-block-body',
@@ -15,66 +9,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 })
 export class InfoBlockBodyComponent implements OnInit {
   @Input() isEditMode = false;
-  @Input() infoContent: InfoBlockData[] = [
-    {
-      rows: [
-        {
-          placeholder: 'Company name',
-          value: '',
-          date: { from: '', to: '' },
-          isTitle: true,
-        },
-        {
-          placeholder: 'Position',
-          value: '',
-        },
-        {
-          placeholder:
-            'Description (Try to list your achievements rather than just job responsibilities)',
-          value: '',
-        },
-      ],
-    },
-    {
-      rows: [
-        {
-          placeholder: 'Company name',
-          value: '',
-          date: { from: '', to: '' },
-          isTitle: true,
-        },
-        {
-          placeholder: 'Position',
-          value: '',
-        },
-        {
-          placeholder:
-            'Description (Try to list your achievements rather than just job responsibilities)',
-          value: '',
-        },
-      ],
-    },
-    {
-      isDefaultItemForExample: true,
-      rows: [
-        {
-          placeholder: 'Company name',
-          value: '',
-          date: { from: '', to: '' },
-          isTitle: true,
-        },
-        {
-          placeholder: 'Position',
-          value: '',
-        },
-        {
-          placeholder:
-            'Description (Try to list your achievements rather than just job responsibilities)',
-          value: '',
-        },
-      ],
-    },
-  ];
+  @Input() infoContent: InfoBlockData[] = [];
 
   public checkIcon = faCheckCircle;
 
@@ -82,9 +17,7 @@ export class InfoBlockBodyComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.setDefaultItem();
-  }
+  ngOnInit(): void {}
 
   public handleDelete(index: number, event: Event) {
     event.stopPropagation();
@@ -95,22 +28,7 @@ export class InfoBlockBodyComponent implements OnInit {
     this.infoContent.push(this.defaultItem);
   }
 
-  private setDefaultItem() {
-    this.defaultItem = {
-      ...this.infoContent.find((item) => item.isDefaultItemForExample),
-      isDefaultItemForExample: false,
-    } as InfoBlockData;
+  public handleChangeValue(indexItem: number, index: number, event: any) {
+    this.infoContent[indexItem].rows[index].value = event.target.innerText;
   }
-}
-
-export interface InfoBlockData {
-  isDefaultItemForExample?: boolean;
-  rows: InfoBlockDataRow[];
-}
-
-export interface InfoBlockDataRow {
-  placeholder: string;
-  value: string;
-  date?: { from: Date | string; to: Date | string };
-  isTitle?: boolean;
 }
