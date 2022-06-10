@@ -96,15 +96,15 @@ export const resume: NewResumeInstance = {
         items: [
           {
             name: '',
-            rate: 5,
+            rate: 1,
           },
           {
             name: '',
-            rate: 4,
+            rate: 1,
           },
           {
             name: '',
-            rate: 3,
+            rate: 1,
           },
         ],
       },

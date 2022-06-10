@@ -21,7 +21,7 @@
         <p
           appFictiveInput
           class="title"
-          [class.filled]="item.company.length"
+          [class.filled]="item.company"
           [textContent]="item.company"
           [fictivePlaceholder]="'Company name'"
           (input)="handleChangeValue(idx, 'company', $event)"
@@ -31,7 +31,7 @@
       <div class="row">
         <p
           appFictiveInput
-          [class.filled]="item.position.length"
+          [class.filled]="item.position"
           [textContent]="item.position"
           [fictivePlaceholder]="'Position'"
           (input)="handleChangeValue(idx, 'position', $event)"
@@ -41,7 +41,7 @@
       <div class="row">
         <p
           appFictiveInput
-          [class.filled]="item.description.length"
+          [class.filled]="item.description"
           [textContent]="item.description"
           [fictivePlaceholder]="
             'Description (Try to list your achievements rather than just job responsibilities)'

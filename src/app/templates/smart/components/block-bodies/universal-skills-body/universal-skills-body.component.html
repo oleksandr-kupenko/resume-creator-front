@@ -13,13 +13,18 @@
         <p
           appFictiveInput
           class="title"
-          [class.filled]="item.name.length"
+          [class.filled]="item.name"
           [textContent]="item.name"
-          [fictivePlaceholder]="'Skill'"
-          (input)="handleChangeValue(idx, 'institution', $event)"
+          [fictivePlaceholder]="rowPlaceholder"
+          (input)="handleChangeValue(idx, $event)"
         ></p>
 
-        <div class="row__progress">test</div>
+        <div class="row__progress">
+          <app-smart-progress-bar
+            [rating]="item.rate"
+            (changeRating)="handleChangeRate(idx, $event)"
+          ></app-smart-progress-bar>
+        </div>
       </div>
     </div>
   </ng-container>

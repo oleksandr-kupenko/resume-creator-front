@@ -22,7 +22,7 @@
         <p
           appFictiveInput
           class="title"
-          [class.filled]="item.institution.length"
+          [class.filled]="item.institution"
           [textContent]="item.institution"
           [fictivePlaceholder]="'School / University'"
           (input)="handleChangeValue(idx, 'institution', $event)"
@@ -32,7 +32,7 @@
       <div class="row">
         <p
           appFictiveInput
-          [class.filled]="item.description.length"
+          [class.filled]="item.description"
           [textContent]="item.description"
           [fictivePlaceholder]="'Degree and field of study'"
           (input)="handleChangeValue(idx, 'description', $event)"

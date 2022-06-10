@@ -1,0 +1,11 @@
+<ul #parentEl class="smart-rating">
+  <li
+    *ngFor="let icon of ratingCircles; let idx = index"
+    [class.active]="icon.isActive"
+    (click)="
+      handleSetRating(idx, true); $event.stopPropagation(); parentEl.click()
+    "
+  >
+    <i></i>
+  </li>
+</ul>

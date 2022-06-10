@@ -3,42 +3,88 @@
     <app-smart-template-header></app-smart-template-header>
     <app-smart-contacts-list></app-smart-contacts-list>
     <div class="smart-template__body">
-      <ng-container *ngFor="let infoBlock of infoBlocks | keyvalue">
-        <container-element [ngSwitch]="infoBlock.value.type">
-          <ng-container *ngSwitchCase="BT.education">
-            <ng-container
-              *ngTemplateOutlet="education; context: { infoBlock: infoBlock }"
-            ></ng-container>
-          </ng-container>
+      <div class="smart-template__body--left">
+        <ng-container *ngFor="let infoBlock of infoBlocks | keyvalue">
+          <container-element [ngSwitch]="infoBlock.value.type">
+            <ng-container *ngSwitchCase="BT.education">
+              <ng-container
+                *ngTemplateOutlet="education; context: { infoBlock: infoBlock }"
+              ></ng-container>
+            </ng-container>
 
-          <ng-container *ngSwitchCase="BT.experience">
-            <ng-container
-              *ngTemplateOutlet="experience; context: { infoBlock: infoBlock }"
-            ></ng-container>
-          </ng-container>
+            <ng-container *ngSwitchCase="BT.experience">
+              <ng-container
+                *ngTemplateOutlet="
+                  experience;
+                  context: { infoBlock: infoBlock }
+                "
+              ></ng-container>
+            </ng-container>
 
-          <ng-container *ngSwitchCase="BT.certificates">
-            <ng-container
-              *ngTemplateOutlet="
-                certificates;
-                context: { infoBlock: infoBlock }
-              "
-            ></ng-container>
-          </ng-container>
+            <ng-container *ngSwitchCase="BT.certificates">
+              <ng-container
+                *ngTemplateOutlet="
+                  certificates;
+                  context: { infoBlock: infoBlock }
+                "
+              ></ng-container>
+            </ng-container>
 
-          <ng-container *ngSwitchCase="BT.summary">
-            <ng-container
-              *ngTemplateOutlet="summary; context: { infoBlock: infoBlock }"
-            ></ng-container>
-          </ng-container>
+            <ng-container *ngSwitchCase="BT.summary">
+              <ng-container
+                *ngTemplateOutlet="summary; context: { infoBlock: infoBlock }"
+              ></ng-container>
+            </ng-container>
+          </container-element>
+        </ng-container>
+      </div>
 
-          <ng-container *ngSwitchCase="BT.profskills">
-            <ng-container
-              *ngTemplateOutlet="profskills; context: { infoBlock: infoBlock }"
-            ></ng-container>
-          </ng-container>
-        </container-element>
-      </ng-container>
+      <div class="smart-template__body--right">
+        <ng-container *ngFor="let infoBlock of infoBlocks | keyvalue">
+          <container-element [ngSwitch]="infoBlock.value.type">
+            <div>
+              <ng-container *ngSwitchCase="BT.profskills">
+                <ng-container
+                  *ngTemplateOutlet="
+                    profskills;
+                    context: {
+                      infoBlock: infoBlock,
+                      titlePlaceholder: 'Professional Skills',
+                      rowPlaceholder: 'Skill'
+                    }
+                  "
+                ></ng-container>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="BT.techskills">
+                <ng-container
+                  *ngTemplateOutlet="
+                    profskills;
+                    context: {
+                      infoBlock: infoBlock,
+                      titlePlaceholder: 'Technical skills',
+                      rowPlaceholder: 'Application'
+                    }
+                  "
+                ></ng-container>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="BT.langskills">
+                <ng-container
+                  *ngTemplateOutlet="
+                    profskills;
+                    context: {
+                      infoBlock: infoBlock,
+                      titlePlaceholder: 'Languages',
+                      rowPlaceholder: 'Language'
+                    }
+                  "
+                ></ng-container>
+              </ng-container>
+            </div>
+          </container-element>
+        </ng-container>
+      </div>
     </div>
   </app-a4-wrapper>
 </div>
@@ -111,19 +157,25 @@
   </app-info-block-wrapper>
 </ng-template>
 
-<ng-template #profskills let-infoBlock="infoBlock">
+<ng-template
+  #profskills
+  let-infoBlock="infoBlock"
+  let-titlePlaceholder="titlePlaceholder"
+  let-rowPlaceholder="rowPlaceholder"
+>
   <app-info-block-wrapper [contextForHimself]="infoBlockContent">
     <ng-template #infoBlockContent let-isEditMode="isEditMode">
       <app-info-block-head
-        [placeholder]="'Profskills'"
+        [placeholder]="titlePlaceholder"
         [blockData]="infoBlock.value"
         (changeTitle)="handleSetBlockChanges($event, infoBlock.key)"
       ></app-info-block-head>
-      <app-profskills-body
+      <app-universal-skills
         [data]="infoBlock.value"
         [isEditMode]="isEditMode"
+        [rowPlaceholder]="rowPlaceholder"
         (changeBlcok)="handleSetBlockChanges($event, infoBlock.key)"
-      ></app-profskills-body>
+      ></app-universal-skills>
     </ng-template>
   </app-info-block-wrapper>
 </ng-template>

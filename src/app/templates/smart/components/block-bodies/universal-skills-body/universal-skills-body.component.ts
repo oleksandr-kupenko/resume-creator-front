@@ -9,14 +9,18 @@ import { SkillItem, Skills } from 'src/app/templates/resume.interface';
 import { BlockBodyBase } from 'src/app/templates/smart/components/block-bodies/block-body.base';
 
 @Component({
-  selector: 'app-profskills-body',
-  templateUrl: './profskills-body.component.html',
-  styleUrls: ['./profskills-body.component.scss'],
+  selector: 'app-universal-skills',
+  templateUrl: './universal-skills-body.component.html',
+  styleUrls: ['./universal-skills-body.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfskillsBodyComponent extends BlockBodyBase implements OnInit {
+export class UniversalSkillsBodyComponent
+  extends BlockBodyBase
+  implements OnInit
+{
   @Input() data!: Skills;
   @Input() isEditMode!: boolean;
+  @Input() rowPlaceholder = 'text';
 
   public checkIcon = faCheckCircle;
 
@@ -39,12 +43,13 @@ export class ProfskillsBodyComponent extends BlockBodyBase implements OnInit {
     this.sendUpdateBlock(this.data);
   }
 
-  public handleChangeValue(
-    index: number,
-    field: 'institution' | 'description',
-    event: any
-  ) {
-    //this.data.data.items[index][field] = event.target.innerText;
+  public handleChangeValue(index: number, event: any) {
+    this.data.data.items[index].name = event.target.innerText;
+    this.sendUpdateBlock(this.data);
+  }
+
+  public handleChangeRate(index: number, newRate: number) {
+    this.data.data.items[index].rate = newRate;
     this.sendUpdateBlock(this.data);
   }
 

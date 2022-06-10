@@ -27,7 +27,7 @@
           <p
             appFictiveInput
             [class.title]="true"
-            [class.filled]="row.value?.length"
+            [class.filled]="row.value"
             [textContent]="row.value"
             [fictivePlaceholder]="row.placeholder"
             (input)="handleChangeValue(idxItem, idx, $event)"

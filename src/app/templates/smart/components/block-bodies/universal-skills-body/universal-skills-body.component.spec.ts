@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProfskillsBodyComponent } from './profskills-body.component';
+import { UniversalSkillsBodyComponent } from './universal-skills-body.component';
 
 describe('EducationComponent', () => {
-  let component: ProfskillsBodyComponent;
-  let fixture: ComponentFixture<ProfskillsBodyComponent>;
+  let component: UniversalSkillsBodyComponent;
+  let fixture: ComponentFixture<UniversalSkillsBodyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProfskillsBodyComponent],
+      declarations: [UniversalSkillsBodyComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProfskillsBodyComponent);
+    fixture = TestBed.createComponent(UniversalSkillsBodyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

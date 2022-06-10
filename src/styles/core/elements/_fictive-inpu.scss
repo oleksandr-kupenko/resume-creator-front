@@ -1,4 +1,6 @@
 .fictive-input {
+  margin-right: auto;
+
   &[contenteditable="true"]:empty:not(:focus-within):before {
     pointer-events: none;
     display: block; /* For Firefox */
