@@ -13,7 +13,7 @@ import {
 import { Moment } from 'moment';
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
-import { Period } from 'src/app/templates/resume.interface';
+import { Period } from 'src/app/resume-templates/resume.interface';
 
 const moment = _rollupMoment || _moment;
 
@@ -71,7 +71,6 @@ export class DataRangePickerComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.propsFromDate, this.propsToDate);
     this.setFirstDate();
   }
 

@@ -1,0 +1,63 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px 0;
+  border: 0.0625rem solid transparent;
+  transition: border-color 0.1s ease-in-out;
+
+  &:hover {
+    border: 0.0625rem solid #3596f3;
+    border-radius: 0.25rem;
+  }
+
+  hr {
+    border: none;
+    border-top: 0.125rem solid #3596f3;
+    width: 100%;
+  }
+
+  .contacts-wrapper {
+    margin-left: -1.5rem;
+    width: calc(100% + 3rem);
+  }
+
+  .contacts-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 2.625rem 10px 4.125rem;
+    color: white;
+    background-color: #3596f3;
+
+    &__item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
+
+      .delete-btn {
+        position: absolute;
+        left: -1.5rem;
+      }
+
+      &:not(:last-child) {
+        margin-right: 2.19rem;
+      }
+
+      app-dropdown-icons {
+        margin-right: 0.125rem;
+      }
+    }
+  }
+
+  .add-contact {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 1.065rem;
+    background-color: #3596f3;
+  }
+}

@@ -1,5 +1,7 @@
 @import "styles/_main";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "styles/core/_mixins.scss";
+@import "styles/core/_variables.scss";
 
 :root {
   --main-color: #3596f3;
@@ -8,6 +10,9 @@
   --dark-btn-color: #2253c8;
   --dark-btn-hover-color: #1b419c;
   --placeholder: "";
+
+  --placeholder-grey: #808080;
+  --fill-black: #484848;
 }
 
 * {
@@ -39,6 +44,13 @@ h5,
 h6 {
   margin: 0;
   padding: 0;
+}
+
+html {
+  font-size: 16px;
+  @include bp-1024 {
+    font-size: calc(100vw / 68.54);
+  }
 }
 
 html,

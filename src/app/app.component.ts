@@ -15,5 +15,7 @@ export class AppComponent implements OnInit {
     this.appService.testGetPosts().subscribe((data) => {
       this.list = data;
     });
+
+    document.documentElement.style.setProperty('--base-size', '10px');
   }
 }

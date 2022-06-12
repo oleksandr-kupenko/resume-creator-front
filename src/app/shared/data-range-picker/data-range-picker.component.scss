@@ -13,24 +13,24 @@
   }
 
   .mat-card {
-    padding: 8px;
+    padding: 0.5rem;
   }
 
   &__calendar {
-    width: 230px;
+    width: 14.375rem;
 
     .present-checbox {
       display: flex;
       justify-content: space-between;
-      padding: 10px;
+      padding: 0.625rem;
       background-color: #e6e6e6;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      margin-top: 10px;
+      border-radius: 0.315rem;
+      margin-bottom: 0.625rem;
+      margin-top: 0.625rem;
       position: relative;
 
       span {
-        line-height: 24px;
+        line-height: 1.5rem;
       }
     }
   }
