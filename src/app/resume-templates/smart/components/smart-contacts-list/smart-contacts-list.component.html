@@ -38,9 +38,9 @@
     </div>
     <div *ngIf="isEditMode" class="add-contact">
       <app-add-btn
-        [disabled]="contactsList.length >= 8"
+        [disabled]="data.items.length >= 8"
         [isDarker]="true"
-        (click)="contactsList.length < 8 ? handleAddContact($event) : null"
+        (click)="data.items.length < 8 ? handleAddContact($event) : null"
       ></app-add-btn>
     </div>
 
