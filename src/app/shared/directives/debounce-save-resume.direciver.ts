@@ -16,7 +16,9 @@ export class DebounceSaveDirective {
 
   private timeoutID?: number;
 
-  sendUpdateDataWithDebounce(newData: HeadInfo | Contacts | ResumeInfoBlock) {
+  public sendUpdateDataWithDebounce(
+    newData: HeadInfo | Contacts | ResumeInfoBlock
+  ) {
     if (typeof this.timeoutID === 'number') {
       this.cancel();
     }
@@ -27,7 +29,7 @@ export class DebounceSaveDirective {
     );
   }
 
-  sendUpdateData(data: HeadInfo | Contacts | ResumeInfoBlock): void {
+  private sendUpdateData(data: HeadInfo | Contacts | ResumeInfoBlock): void {
     switch (data.type) {
       case 'headInfo':
         return this.changeHeadInfo.emit(data);

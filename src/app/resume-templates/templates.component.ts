@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  NewResumeInstance,
-  ResumeInstance,
-} from 'src/app/resume-templates/resume.interface';
+import { NewResumeInstance } from 'src/app/resume-templates/resume.interface';
 import { ResumeService } from 'src/app/resume-templates/resume.service';
 
 @Component({

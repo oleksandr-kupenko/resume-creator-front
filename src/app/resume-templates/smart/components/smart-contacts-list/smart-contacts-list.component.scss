@@ -1,4 +1,4 @@
-:host {
+.contacts-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -17,12 +17,12 @@
     width: 100%;
   }
 
-  .contacts-wrapper {
+  .contacts {
     margin-left: -1.5rem;
     width: calc(100% + 3rem);
   }
 
-  .contacts-list {
+  .contacts__list {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -31,7 +31,7 @@
     color: white;
     background-color: #3596f3;
 
-    &__item {
+    &--item {
       position: relative;
       display: flex;
       align-items: center;

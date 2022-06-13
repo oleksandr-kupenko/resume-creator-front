@@ -4,7 +4,10 @@
       [data]="resume.head"
       (changeHeadInfo)="handleChangeHeadInfo($event)"
     ></app-smart-template-header>
-    <app-smart-contacts-list></app-smart-contacts-list>
+    <app-smart-contacts-list
+      [data]="resume.contacts"
+      (changeContacts)="handleChangeContacts($event)"
+    ></app-smart-contacts-list>
     <div class="smart-template__body">
       <div class="smart-template__body--left">
         <ng-container *ngFor="let infoBlock of infoBlocks | keyvalue">

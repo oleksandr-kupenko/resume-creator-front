@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
   BLCOK_TYPE,
+  Contacts,
   HeadInfo,
   NewResumeInstance,
   ResumeBlcokItem,
@@ -28,14 +29,26 @@ export class SmartComponent implements OnInit {
   }
 
   public handleSetBlockChanges(newBlock: ResumeInfoBlock, key: string) {
-    const newResume = {
+    const newResume: NewResumeInstance = {
       ...this.resume,
-      blocks: { ...this.resume.blocks, newBlock },
+      blocks: { ...this.resume.blocks, [key]: newBlock },
     };
     this.resumeSerive.setResume(newResume);
   }
 
   public handleChangeHeadInfo(newHeadInfo: HeadInfo) {
-    console.log(newHeadInfo);
+    const newResume: NewResumeInstance = {
+      ...this.resume,
+      head: newHeadInfo,
+    };
+    this.resumeSerive.setResume(newResume);
+  }
+
+  public handleChangeContacts(newContacts: Contacts) {
+    const newResume: NewResumeInstance = {
+      ...this.resume,
+      contacts: newContacts,
+    };
+    this.resumeSerive.setResume(newResume);
   }
 }

@@ -5,13 +5,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import {
-  Education,
-  EducationItem,
-  Period,
-  Summary,
-} from 'src/app/resume-templates/resume.interface';
-import { BlockBodyBase } from 'src/app/resume-templates/smart/components/block-bodies/block-body.base';
+import { Summary } from 'src/app/resume-templates/resume.interface';
+import { DebounceSaveDirective } from 'src/app/shared/directives/debounce-save-resume.direciver';
 
 @Component({
   selector: 'app-summary-body',
@@ -19,7 +14,10 @@ import { BlockBodyBase } from 'src/app/resume-templates/smart/components/block-b
   styleUrls: ['./summary-body.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SummaryBodyComponent extends BlockBodyBase implements OnInit {
+export class SummaryBodyComponent
+  extends DebounceSaveDirective
+  implements OnInit
+{
   @Input() data!: Summary;
   @Input() isEditMode!: boolean;
 
@@ -29,12 +27,10 @@ export class SummaryBodyComponent extends BlockBodyBase implements OnInit {
     super();
   }
 
-  ngOnInit(): void {
-    this.subscribeForDebounceChangeBlocks();
-  }
+  ngOnInit(): void {}
 
   public handleChangeValue(event: any) {
     this.data.data.summary = event.target.innerText;
-    this.sendUpdateBlock(this.data);
+    this.sendUpdateDataWithDebounce(this.data);
   }
 }

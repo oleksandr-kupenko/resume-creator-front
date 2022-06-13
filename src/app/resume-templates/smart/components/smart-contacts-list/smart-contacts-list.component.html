@@ -1,10 +1,16 @@
-<div class="contacts-wrapper">
-  <hr class="m-bottom-5" />
-  <div class="contacts" appBackDrop (clickOutside)="isEditMode = false">
-    <div class="contacts-list" (click)="handleOpenEditMode($event)">
+<div
+  class="contacts-wrapper"
+  appBackDrop
+  (click)="handleOpenEditMode()"
+  (clickOutside)="isEditMode = false"
+>
+  <div class="contacts">
+    <hr class="m-bottom-5" />
+
+    <div class="contacts__list">
       <div
-        *ngFor="let contact of contactsList; let idx = index"
-        class="contacts-list__item"
+        *ngFor="let contact of data.items; let idx = index"
+        class="contacts__list--item"
       >
         <button
           *ngIf="isEditMode"
@@ -17,25 +23,26 @@
         <app-dropdown-icons
           role="button"
           [isEditMode]="isEditMode"
-          [currentIcon]="contact.icon"
+          [currentType]="contact.type"
           (changeIcon)="handleChageIcon(idx, $event)"
         ></app-dropdown-icons>
 
         <p
           appFictiveInput
           [fictivePlaceholder]="'Contact details'"
-          [textContent]="contact.text"
+          [textContent]="contact.value"
           (input)="handleChangeName(idx, $event)"
         ></p>
       </div>
     </div>
     <div *ngIf="isEditMode" class="add-contact">
       <app-add-btn
-        [disabled]="contactsList.length >= 8"
+        [disabled]="data.items.length >= 8"
         [isDarker]="true"
-        (click)="contactsList.length < 8 ? handleAddContact($event) : null"
+        (click)="data.items.length < 8 ? handleAddContact($event) : null"
       ></app-add-btn>
     </div>
+
+    <hr class="m-top-5" />
   </div>
-  <hr class="m-top-5" />
 </div>

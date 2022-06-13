@@ -37,13 +37,11 @@ export class SmartTemplateHeaderComponent
   );
 
   public handleChangeField(field: 'name' | 'role', event: any) {
-    this.sendUpdateDataWithDebounce(this.data);
-
     field == 'name'
       ? (this.data.fullname = event.target.innerText)
       : (this.data.position = event.target.innerText);
 
-    //this.saveHeaderWithDebounce();
+    this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleSelectFile(event: any) {

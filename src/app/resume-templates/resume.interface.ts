@@ -1,14 +1,3 @@
-export interface ResumeInstance {
-  head: ResumeHead;
-  infoBlocks: InfoBlock[];
-  contacts: ResumeContacts[];
-}
-
-export interface ResumeContacts {
-  icon: CONTACT_ICON;
-  text: string;
-}
-
 export interface ResumeHead {
   photo: string;
   name: string;
@@ -103,10 +92,7 @@ export interface HeadInfo {
 
 export interface Contacts {
   type: 'contacts';
-  items: {
-    type: CONTACT_TYPE;
-    value: string;
-  }[];
+  items: ContactsItem[];
 }
 
 export interface Summary {
@@ -168,6 +154,11 @@ export interface Competence {
 export interface SkillItem {
   name: string;
   rate: number;
+}
+
+export interface ContactsItem {
+  type: CONTACT_TYPE;
+  value: string;
 }
 
 export interface ExperienceItem {

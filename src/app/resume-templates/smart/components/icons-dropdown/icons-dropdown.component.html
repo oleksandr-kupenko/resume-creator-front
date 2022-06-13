@@ -11,14 +11,14 @@
     >
       <fa-icon
         class="current-icon"
-        [icon]="iconsDefinitions[currentIcon]"
+        [icon]="iconsDefinitions[currentType]"
       ></fa-icon>
     </button>
     <div *ngIf="isOpenDropdown" class="dropdown-edit__icons-drop-list">
       <button
         *ngFor="let icon of iconsList"
         class="dropdown-edit__icons-drop-list--item"
-        [class.active]="icon === currentIcon"
+        [class.active]="icon === currentType"
         (click)="hanldeSelectIcon(icon, $event)"
       >
         <fa-icon [icon]="iconsDefinitions[icon]"></fa-icon>

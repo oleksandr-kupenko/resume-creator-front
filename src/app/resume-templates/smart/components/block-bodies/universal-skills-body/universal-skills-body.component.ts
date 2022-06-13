@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { SkillItem, Skills } from 'src/app/resume-templates/resume.interface';
-import { BlockBodyBase } from 'src/app/resume-templates/smart/components/block-bodies/block-body.base';
+import { DebounceSaveDirective } from 'src/app/shared/directives/debounce-save-resume.direciver';
 
 @Component({
   selector: 'app-universal-skills',
@@ -15,7 +15,7 @@ import { BlockBodyBase } from 'src/app/resume-templates/smart/components/block-b
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UniversalSkillsBodyComponent
-  extends BlockBodyBase
+  extends DebounceSaveDirective
   implements OnInit
 {
   @Input() data!: Skills;
@@ -33,28 +33,26 @@ export class UniversalSkillsBodyComponent
     super();
   }
 
-  ngOnInit(): void {
-    this.subscribeForDebounceChangeBlocks();
-  }
+  ngOnInit(): void {}
 
   public handleDelete(index: number, event: Event) {
     event.stopPropagation();
     this.data.data.items.splice(index, 1);
-    this.sendUpdateBlock(this.data);
+    this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleChangeValue(index: number, event: any) {
     this.data.data.items[index].name = event.target.innerText;
-    this.sendUpdateBlock(this.data);
+    this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleChangeRate(index: number, newRate: number) {
     this.data.data.items[index].rate = newRate;
-    this.sendUpdateBlock(this.data);
+    this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleAddItem() {
     this.data.data.items.push({ ...this.defaultItem });
-    this.sendUpdateBlock(this.data);
+    this.sendUpdateDataWithDebounce(this.data);
   }
 }

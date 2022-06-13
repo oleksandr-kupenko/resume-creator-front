@@ -13,7 +13,10 @@ import {
   faMapMarkerAlt,
   faPhone,
 } from '@fortawesome/free-solid-svg-icons';
-import { CONTACT_ICON } from 'src/app/resume-templates/resume.interface';
+import {
+  CONTACT_ICON,
+  CONTACT_TYPE,
+} from 'src/app/resume-templates/resume.interface';
 
 @Component({
   selector: 'app-dropdown-icons',
@@ -22,23 +25,23 @@ import { CONTACT_ICON } from 'src/app/resume-templates/resume.interface';
 })
 export class IconsDropdownComponent implements OnInit {
   @Input() isEditMode = false;
-  @Input() currentIcon: CONTACT_ICON = CONTACT_ICON.faPhone;
-  @Output() changeIcon = new EventEmitter<CONTACT_ICON>();
+  @Input() currentType: CONTACT_TYPE = CONTACT_TYPE.phone;
+  @Output() changeIcon = new EventEmitter<CONTACT_TYPE>();
 
   public isOpenDropdown = false;
 
-  public iconsList = Object.values(CONTACT_ICON);
+  public iconsList = Object.values(CONTACT_TYPE);
 
-  public iconsDefinitions: { [key in CONTACT_ICON]: IconDefinition } = {
-    [CONTACT_ICON.faPhone]: faPhone,
-    [CONTACT_ICON.faMapMarkerAlt]: faMapMarkerAlt,
-    [CONTACT_ICON.faFacebook]: faFacebook,
-    [CONTACT_ICON.faLinkedin]: faLinkedin,
-    [CONTACT_ICON.faGithub]: faGithub,
-    [CONTACT_ICON.faInstagram]: faInstagram,
-    [CONTACT_ICON.faTelegram]: faTelegram,
-    [CONTACT_ICON.faEnvelope]: faEnvelope,
-    [CONTACT_ICON.faLink]: faLink,
+  public iconsDefinitions: { [key in CONTACT_TYPE]: IconDefinition } = {
+    [CONTACT_TYPE.phone]: faPhone,
+    [CONTACT_TYPE.location]: faMapMarkerAlt,
+    [CONTACT_TYPE.facebook]: faFacebook,
+    [CONTACT_TYPE.linkedin]: faLinkedin,
+    [CONTACT_TYPE.github]: faGithub,
+    [CONTACT_TYPE.instagram]: faInstagram,
+    [CONTACT_TYPE.telegram]: faTelegram,
+    [CONTACT_TYPE.email]: faEnvelope,
+    [CONTACT_TYPE.link]: faLink,
   };
 
   constructor() {}
@@ -49,7 +52,7 @@ export class IconsDropdownComponent implements OnInit {
     this.isOpenDropdown = !this.isOpenDropdown;
   }
 
-  public hanldeSelectIcon(icon: CONTACT_ICON, event: Event) {
+  public hanldeSelectIcon(icon: CONTACT_TYPE, event: Event) {
     event.stopPropagation();
     this.changeIcon.emit(icon);
     this.isOpenDropdown = false;

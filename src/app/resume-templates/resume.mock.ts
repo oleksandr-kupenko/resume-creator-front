@@ -18,19 +18,14 @@ export const resume: NewResumeInstance = {
     items: [
       {
         type: CONTACT_TYPE.email,
-        value:
-          '<p>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!f!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>',
+        value: '<b>test</b>',
       },
       {
         type: CONTACT_TYPE.phone,
         value: '',
       },
       {
-        type: CONTACT_TYPE.phone,
-        value: '',
-      },
-      {
-        type: CONTACT_TYPE.phone,
+        type: CONTACT_TYPE.location,
         value: '',
       },
     ],

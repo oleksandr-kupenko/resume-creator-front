@@ -11,7 +11,7 @@ import {
   ExperienceItem,
   Period,
 } from 'src/app/resume-templates/resume.interface';
-import { BlockBodyBase } from 'src/app/resume-templates/smart/components/block-bodies/block-body.base';
+import { DebounceSaveDirective } from 'src/app/shared/directives/debounce-save-resume.direciver';
 
 @Component({
   selector: 'app-experience-body',
@@ -19,7 +19,10 @@ import { BlockBodyBase } from 'src/app/resume-templates/smart/components/block-b
   styleUrls: ['./experience-body.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExperienceBodyComponent extends BlockBodyBase implements OnInit {
+export class ExperienceBodyComponent
+  extends DebounceSaveDirective
+  implements OnInit
+{
   @Input() data!: Experience;
   @Input() isEditMode!: boolean;
 
@@ -36,14 +39,12 @@ export class ExperienceBodyComponent extends BlockBodyBase implements OnInit {
     super();
   }
 
-  ngOnInit(): void {
-    this.subscribeForDebounceChangeBlocks();
-  }
+  ngOnInit(): void {}
 
   public handleDelete(index: number, event: Event) {
     event.stopPropagation();
     this.data.data.items.splice(index, 1);
-    this.sendUpdateBlock(this.data);
+    this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleChangeValue(
@@ -52,16 +53,16 @@ export class ExperienceBodyComponent extends BlockBodyBase implements OnInit {
     event: any
   ) {
     this.data.data.items[index][field] = event.target.innerText;
-    this.sendUpdateBlock(this.data);
+    this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleAddItem() {
     this.data.data.items.push({ ...this.defaultItem });
-    this.sendUpdateBlock(this.data);
+    this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handlePeriodChange(index: number, newPeriod: Period) {
     this.data.data.items[index].period = newPeriod;
-    this.sendUpdateBlock(this.data);
+    this.sendUpdateDataWithDebounce(this.data);
   }
 }

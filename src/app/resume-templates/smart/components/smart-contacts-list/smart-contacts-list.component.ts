@@ -1,40 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 
 import {
-  CONTACT_ICON,
-  ResumeContacts,
+  Contacts,
+  ContactsItem,
+  CONTACT_TYPE,
 } from 'src/app/resume-templates/resume.interface';
+import { DebounceSaveDirective } from 'src/app/shared/directives/debounce-save-resume.direciver';
 
 @Component({
   selector: 'app-smart-contacts-list',
   templateUrl: './smart-contacts-list.component.html',
   styleUrls: ['./smart-contacts-list.component.scss'],
 })
-export class SmartContactsListComponent implements OnInit {
+export class SmartContactsListComponent
+  extends DebounceSaveDirective
+  implements OnInit
+{
+  @Input() data!: Contacts;
+
   public isEditMode = false;
 
-  public contactsList: Array<ContactWithOptiosn> = [
-    {
-      icon: CONTACT_ICON.faPhone,
-      text: 'fdf',
-      isInputEdit: false,
-      isOpenDropdown: true,
-    },
-    {
-      icon: CONTACT_ICON.faEnvelope,
-      text: '',
-      isInputEdit: false,
-      isOpenDropdown: false,
-    },
-    {
-      icon: CONTACT_ICON.faEnvelope,
-      text: '',
-      isInputEdit: false,
-      isOpenDropdown: false,
-    },
-  ];
+  private defaultContactItem: ContactsItem = {
+    type: CONTACT_TYPE.phone,
+    value: '',
+  };
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {}
 
@@ -42,41 +35,27 @@ export class SmartContactsListComponent implements OnInit {
 
   public handleDelete(index: number, event: Event) {
     event.stopPropagation();
-    this.contactsList.splice(index, 1);
+    this.data.items.splice(index, 1);
+    this.sendUpdateDataWithDebounce(this.data);
   }
 
-  public handleChageIcon(index: number, newIcon: CONTACT_ICON) {
-    this.contactsList[index].icon = newIcon;
+  public handleChageIcon(index: number, contactTpe: CONTACT_TYPE) {
+    this.data.items[index].type = contactTpe;
+    this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleChangeName(index: number, event: any) {
-    this.contactsList[index].text = event.target.innerText;
-  }
-
-  public handleEnableTextEditMode(changedIndex: number, input: HTMLElement) {
-    this.contactsList = this.contactsList.map((contact, index) => {
-      return changedIndex == index
-        ? { ...contact, isInputEdit: true }
-        : { ...contact, isInputEdit: false };
-    });
+    this.data.items[index].value = event.target.innerText;
+    this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleAddContact(event: Event) {
     event.stopPropagation();
-    this.contactsList.push({
-      icon: CONTACT_ICON.faPhone,
-      text: '',
-      isInputEdit: false,
-      isOpenDropdown: false,
-    });
+    this.data.items.push(this.defaultContactItem);
+    this.sendUpdateDataWithDebounce(this.data);
   }
 
-  handleOpenEditMode(event: Event) {
+  handleOpenEditMode() {
     this.isEditMode = true;
   }
 }
-
-type ContactWithOptiosn = ResumeContacts & {
-  isInputEdit: boolean;
-  isOpenDropdown: boolean;
-};

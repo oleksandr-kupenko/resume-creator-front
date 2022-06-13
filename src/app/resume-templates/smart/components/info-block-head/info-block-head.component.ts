@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   faFacebook,
   faGithub,
@@ -17,7 +24,7 @@ import {
   faSuitcase,
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
-import { debounceTime, Subject } from 'rxjs';
+import { debounceTime, Subject, Subscription } from 'rxjs';
 import {
   BLCOK_TYPE,
   ResumeInfoBlock,
@@ -28,13 +35,15 @@ import {
   templateUrl: './info-block-head.component.html',
   styleUrls: ['./info-block-head.component.scss'],
 })
-export class InfoBlockHeadComponent implements OnInit {
+export class InfoBlockHeadComponent implements OnInit, OnDestroy {
   @Input() placeholder!: string;
   @Input() blockData!: ResumeInfoBlock;
 
   @Output() changeTitle = new EventEmitter<ResumeInfoBlock>();
 
-  debounceOutput: Subject<ResumeInfoBlock> = new Subject<ResumeInfoBlock>();
+  private debounceOutput: Subject<ResumeInfoBlock> =
+    new Subject<ResumeInfoBlock>();
+  private subs = new Subscription();
 
   //TODO change to correct icons
   public iconsDefinitions: { [key in BLCOK_TYPE]: IconDefinition } = {
@@ -52,9 +61,15 @@ export class InfoBlockHeadComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.debounceOutput.pipe(debounceTime(2000)).subscribe((value) => {
-      this.changeTitle.emit(value);
-    });
+    this.subs.add(
+      this.debounceOutput.pipe(debounceTime(2000)).subscribe((value) => {
+        this.changeTitle.emit(value);
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   public handleChangeTitle($event: any) {
