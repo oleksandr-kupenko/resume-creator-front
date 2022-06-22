@@ -1,5 +1,5 @@
 <div class="info-block-body">
-  <ng-container *ngFor="let item of data.data.items; let idx = index">
+  <ng-container *ngFor="let item of certificatesList; let idx = index">
     <div class="info-block-body__item">
       <div class="row row-title">
         <button
@@ -9,7 +9,7 @@
         >
           <app-close-iocn></app-close-iocn>
         </button>
-        <fa-icon class="row__icon" [icon]="checkIcon"></fa-icon>
+        <fa-icon class="row__icon" [icon]="selectedIcons"></fa-icon>
 
         <div class="row__date">
           <app-data-range-picker
@@ -21,8 +21,7 @@
         </div>
         <p
           appFictiveInput
-          [class.filled]="item.description"
-          [textContent]="item.description"
+          [innerHtml]="item.description"
           [fictivePlaceholder]="
             'List professional growth programs (courses, certificates) and awards here'
           "

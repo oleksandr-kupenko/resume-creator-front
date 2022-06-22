@@ -15,8 +15,6 @@ import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 import { Period } from 'src/app/resume-templates/resume.interface';
 
-const moment = _rollupMoment || _moment;
-
 export const MY_FORMATS = {
   parse: {
     dateInput: 'MM/YYYY',
@@ -124,12 +122,10 @@ export class DataRangePickerComponent implements OnInit {
         this.closeDatePicker();
       }
     }
-
-    this.todayDate = new Date();
   }
 
-  public handleSetPercentData(checked: boolean) {
-    this.toDate = this.todayDate;
+  public handleSetPercentDate(checked: boolean) {
+    this.toDate = new Date();
     this.isToDatePrecent = checked;
     this.sendOutputNewDateValue();
   }

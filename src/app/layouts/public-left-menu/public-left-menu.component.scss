@@ -1,0 +1,83 @@
+@import "core/mixins";
+@import "core/variables";
+
+:host {
+  display: flex;
+
+  .left-menu {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 60px;
+    background-color: $menu-middle-grey;
+
+    @include bp-1024 {
+      width: 40px;
+    }
+
+    .left-menu__button {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      height: 90px;
+      width: 100%;
+      transition: 0.2s;
+      background-color: $menu-dark-grey;
+
+      &.notEditMode {
+        &:not(:last-child) {
+          border-bottom: 3px solid $menu-light-grey;
+        }
+      }
+
+      &:hover {
+        background: $menu-middle-grey;
+
+        .left-menu__button--icon ::ng-deep svg {
+          fill: #55a3df;
+
+          path {
+            fill: #55a3df;
+          }
+        }
+      }
+
+      &.active {
+        background: $menu-middle-grey;
+      }
+
+      @include bp-1024 {
+        height: 60px;
+      }
+
+      &--icon {
+        max-width: 30px;
+        transition: 0.2s;
+
+        @include bp-1024 {
+          width: 20px;
+        }
+      }
+    }
+
+    &__after-buttons {
+      height: 100%;
+      background-color: $menu-dark-grey;
+    }
+
+    .before-active {
+      border-bottom-right-radius: 5px;
+    }
+
+    .after-active {
+      border-top-right-radius: 5px;
+    }
+  }
+
+  .left-sub-menu {
+    width: 230px;
+    height: 100%;
+    background-color: $menu-middle-grey;
+  }
+}

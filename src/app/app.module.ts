@@ -7,10 +7,9 @@ import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TemplatesModule } from 'src/app/resume-templates/templates.module';
-import { PublicHeaderComponent } from 'src/app/layouts/public-header/public-header.component';
 
 @NgModule({
-  declarations: [AppComponent, PublicHeaderComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,

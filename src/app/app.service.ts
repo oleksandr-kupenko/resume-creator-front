@@ -7,10 +7,4 @@ import { Observable } from 'rxjs';
 })
 export class AppService {
   constructor(private http: HttpClient) {}
-
-  public testGetPosts(): Observable<unknown> {
-    return this.http.get<unknown>(
-      `https://my-json-server.typicode.com/typicode/demo/posts`
-    );
-  }
 }

@@ -26,7 +26,8 @@ export class ExperienceBodyComponent
   @Input() data!: Experience;
   @Input() isEditMode!: boolean;
 
-  public checkIcon = faCheckCircle;
+  public experienceList!: ExperienceItem[];
+  public selectedIcons = faCheckCircle;
 
   private defaultItem: ExperienceItem = {
     company: '',
@@ -39,10 +40,13 @@ export class ExperienceBodyComponent
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.experienceList = this.data.data.items.map((item) => ({ ...item }));
+  }
 
   public handleDelete(index: number, event: Event) {
     event.stopPropagation();
+    this.experienceList.splice(index, 1);
     this.data.data.items.splice(index, 1);
     this.sendUpdateDataWithDebounce(this.data);
   }
@@ -52,16 +56,17 @@ export class ExperienceBodyComponent
     field: 'company' | 'position' | 'description',
     event: any
   ) {
-    this.data.data.items[index][field] = event.target.innerText;
+    this.data.data.items[index][field] = event.target.innerHTML;
     this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleAddItem() {
+    this.experienceList.push({ ...this.defaultItem });
     this.data.data.items.push({ ...this.defaultItem });
-    this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handlePeriodChange(index: number, newPeriod: Period) {
+    this.experienceList[index].period = newPeriod;
     this.data.data.items[index].period = newPeriod;
     this.sendUpdateDataWithDebounce(this.data);
   }

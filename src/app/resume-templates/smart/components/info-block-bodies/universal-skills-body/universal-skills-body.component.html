@@ -1,5 +1,5 @@
-<div class="info-block-body skill">
-  <ng-container *ngFor="let item of data.data.items; let idx = index">
+<div class="info-block-body without-check-line">
+  <ng-container *ngFor="let item of skillsList; let idx = index">
     <div class="info-block-body__item">
       <div class="row">
         <button
@@ -13,12 +13,10 @@
         <p
           appFictiveInput
           class="title"
-          [class.filled]="item.name"
-          [textContent]="item.name"
+          [innerHtml]="item.name"
           [fictivePlaceholder]="rowPlaceholder"
           (input)="handleChangeValue(idx, $event)"
         ></p>
-
         <div class="row__progress">
           <app-smart-progress-bar
             [rating]="item.rate"

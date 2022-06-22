@@ -5,32 +5,36 @@ import {
   OnInit,
 } from '@angular/core';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { Summary } from 'src/app/resume-templates/resume.interface';
+import { About, Summary } from 'src/app/resume-templates/resume.interface';
 import { DebounceSaveDirective } from 'src/app/shared/directives/debounce-save-resume.direciver';
 
 @Component({
-  selector: 'app-summary-body',
-  templateUrl: './summary-body.component.html',
-  styleUrls: ['./summary-body.component.scss'],
+  selector: 'app-about-body',
+  templateUrl: './about-body.component.html',
+  styleUrls: ['./about-body.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SummaryBodyComponent
+export class AboutBodyComponent
   extends DebounceSaveDirective
   implements OnInit
 {
-  @Input() data!: Summary;
+  @Input() data!: About;
   @Input() isEditMode!: boolean;
 
-  public checkIcon = faCheckCircle;
+  public defaultAbout!: string;
+
+  public selectedIcons = faCheckCircle;
 
   constructor() {
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.defaultAbout = this.data.data.about;
+  }
 
   public handleChangeValue(event: any) {
-    this.data.data.summary = event.target.innerText;
+    this.data.data.about = event.target.innerHTML;
     this.sendUpdateDataWithDebounce(this.data);
   }
 }

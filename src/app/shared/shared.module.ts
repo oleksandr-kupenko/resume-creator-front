@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     OverlayModule,
     MatCardModule,
     MatSlideToggleModule,
+    PipesModule,
   ],
   exports: [
     A4WrapperComponent,
@@ -45,6 +47,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     AddPhotoBtnComponent,
     InfoBlockWrapperComponent,
     DataRangePickerComponent,
+    PipesModule,
   ],
 })
 export class SharedModule {}

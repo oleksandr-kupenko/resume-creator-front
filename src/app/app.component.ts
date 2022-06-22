@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 
 @Component({
@@ -9,13 +9,21 @@ import { AppService } from 'src/app/app.service';
 export class AppComponent implements OnInit {
   list: any = [];
 
-  constructor(private appService: AppService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.appService.testGetPosts().subscribe((data) => {
-      this.list = data;
-    });
+  @HostListener('paste', ['$event'])
+  onPaste(event: ClipboardEvent) {
+    this.clearStyleAndTagsWhenPasteTest(event);
+  }
 
-    document.documentElement.style.setProperty('--base-size', '10px');
+  ngOnInit(): void {}
+
+  private clearStyleAndTagsWhenPasteTest(event: any) {
+    event.preventDefault();
+    console.log(event);
+    var text = (event.originalEvent || event).clipboardData.getData(
+      'text/plain'
+    );
+    document.execCommand('insertHTML', false, text);
   }
 }

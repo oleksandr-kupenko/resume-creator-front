@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   HostBinding,
   Input,
   OnInit,
+  Output,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
@@ -19,6 +21,11 @@ import {
 })
 export class InfoBlockWrapperComponent implements OnInit {
   @Input() contextForHimself!: TemplateRef<any>;
+  @Input() isLast = false;
+  @Input() isFirst = false;
+  @Output() moveBlockUp = new EventEmitter<void>();
+  @Output() moveBlockDown = new EventEmitter<void>();
+  @Output() deleteBlock = new EventEmitter<void>();
 
   public isEditMode = false;
 

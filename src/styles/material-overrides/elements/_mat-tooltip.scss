@@ -1,0 +1,16 @@
+.mat-tooltip.left-menu-tooltip {
+  font-size: 16px;
+  overflow: visible;
+
+  &::before {
+    position: absolute;
+    content: "";
+    left: -12px;
+    top: 9px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 7px 13px 7px 0;
+    border-color: transparent rgba(97, 97, 97, 0.9) transparent transparent;
+  }
+}

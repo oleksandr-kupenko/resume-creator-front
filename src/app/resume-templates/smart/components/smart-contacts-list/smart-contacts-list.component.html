@@ -9,7 +9,7 @@
 
     <div class="contacts__list">
       <div
-        *ngFor="let contact of data.items; let idx = index"
+        *ngFor="let contact of contactsList; let idx = index"
         class="contacts__list--item"
       >
         <button
@@ -30,16 +30,17 @@
         <p
           appFictiveInput
           [fictivePlaceholder]="'Contact details'"
-          [textContent]="contact.value"
+          [value]="contact.value"
+          [innerHtml]="contact.value"
           (input)="handleChangeName(idx, $event)"
         ></p>
       </div>
     </div>
     <div *ngIf="isEditMode" class="add-contact">
       <app-add-btn
-        [disabled]="data.items.length >= 8"
+        [disabled]="contactsList.length >= 8"
         [isDarker]="true"
-        (click)="data.items.length < 8 ? handleAddContact($event) : null"
+        (click)="contactsList.length < 8 ? handleAddContact($event) : null"
       ></app-add-btn>
     </div>
 

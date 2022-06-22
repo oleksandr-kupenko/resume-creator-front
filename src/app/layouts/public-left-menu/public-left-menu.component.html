@@ -1,0 +1,35 @@
+<div class="left-menu">
+  <button
+    *ngFor="let button of menuItems; let idx = index"
+    class="left-menu__button"
+    [ngClass]="{
+      active: idx == currentActiveIndex,
+      notEditMode: !isEditMode,
+      'before-active':
+        currentActiveIndex != null && idx == currentActiveIndex - 1,
+      'after-active':
+        currentActiveIndex != null && idx == currentActiveIndex + 1
+    }"
+    [class.active]="idx == currentActiveIndex"
+    [class.notEditMode]="!isEditMode"
+    [matTooltip]="button.tooltip"
+    [matTooltipPosition]="'right'"
+    matTooltipClass="left-menu-tooltip"
+    (click)="handleOpenSubMenu($event, idx)"
+  >
+    <div class="left-menu__button--icon">
+      <ng-container [ngComponentOutlet]="button.iconComponent"></ng-container>
+    </div>
+  </button>
+  <div
+    class="left-menu__after-buttons"
+    [class.after-active]="currentActiveIndex == menuItems.length - 1"
+  ></div>
+</div>
+
+<div
+  *ngIf="isEditMode"
+  class="left-sub-menu"
+  appBackDrop
+  (clickOutside)="handleCloseEditMode()"
+></div>

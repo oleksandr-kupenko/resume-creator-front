@@ -18,6 +18,8 @@ export class SmartContactsListComponent
 {
   @Input() data!: Contacts;
 
+  contactsList!: ContactsItem[];
+
   public isEditMode = false;
 
   private defaultContactItem: ContactsItem = {
@@ -29,29 +31,33 @@ export class SmartContactsListComponent
     super();
   }
 
-  ngOnInit(): void {}
-
-  public icons = {};
+  ngOnInit(): void {
+    this.contactsList = this.data.items.map((item) => ({ ...item }));
+  }
 
   public handleDelete(index: number, event: Event) {
     event.stopPropagation();
     this.data.items.splice(index, 1);
+    this.contactsList.splice(index, 1);
     this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleChageIcon(index: number, contactTpe: CONTACT_TYPE) {
     this.data.items[index].type = contactTpe;
+    this.contactsList[index].type = contactTpe;
     this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleChangeName(index: number, event: any) {
-    this.data.items[index].value = event.target.innerText;
+    this.data.items[index].value = event.target.innerHTML;
     this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleAddContact(event: Event) {
+    console.log('add');
     event.stopPropagation();
-    this.data.items.push(this.defaultContactItem);
+    this.data.items.push({ ...this.defaultContactItem });
+    this.contactsList.push({ ...this.defaultContactItem });
     this.sendUpdateDataWithDebounce(this.data);
   }
 

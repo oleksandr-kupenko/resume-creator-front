@@ -14,10 +14,10 @@
       <app-close-iocn></app-close-iocn>
     </button>
     <div class="avatar__img" (click)="inputFile.click()">
-      <app-no-avatar-iocn *ngIf="!avatarFile"></app-no-avatar-iocn>
+      <app-no-avatar-iocn *ngIf="!imageBase64"></app-no-avatar-iocn>
       <img
-        *ngIf="avatarFile"
-        [src]="data.photo.image || avatarFile"
+        *ngIf="imageBase64"
+        [src]="data.photo.image || imageBase64"
         alt="Avatar"
       />
 
@@ -36,7 +36,7 @@
       contenteditable="true"
       appFictiveInput
       [fictivePlaceholder]="'Your name'"
-      [textContent]="data.fullname"
+      [innerHtml]="data.fullname"
       (input)="handleChangeField('name', $event)"
     ></h2>
     <div class="smart-header__text--role" [class.without-avatar]="!isAvatar">
@@ -51,9 +51,8 @@
         </button>
         <h3
           appFictiveInput
-          [class.filled]="data.position"
           [fictivePlaceholder]="'Desired role'"
-          [textContent]="data.position"
+          [innerHtml]="data.position"
           (input)="handleChangeField('role', $event)"
         ></h3>
       </ng-container>

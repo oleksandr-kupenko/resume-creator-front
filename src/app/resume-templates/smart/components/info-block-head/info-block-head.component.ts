@@ -6,15 +6,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {
-  faFacebook,
-  faGithub,
-  faInstagram,
-  faLinkedin,
-  faTelegram,
-} from '@fortawesome/free-brands-svg-icons';
+
 import {
   faCertificate,
+  faCheckCircle,
   faCog,
   faComments,
   faCrosshairs,
@@ -39,6 +34,8 @@ export class InfoBlockHeadComponent implements OnInit, OnDestroy {
   @Input() placeholder!: string;
   @Input() blockData!: ResumeInfoBlock;
 
+  public defaultTitle!: string;
+
   @Output() changeTitle = new EventEmitter<ResumeInfoBlock>();
 
   private debounceOutput: Subject<ResumeInfoBlock> =
@@ -55,12 +52,14 @@ export class InfoBlockHeadComponent implements OnInit, OnDestroy {
     [BLCOK_TYPE.techskills]: faCog,
     [BLCOK_TYPE.profskills]: faCrosshairs,
     [BLCOK_TYPE.about]: faInfo,
-    [BLCOK_TYPE.competence]: faInfo,
+    [BLCOK_TYPE.competence]: faCheckCircle,
   };
 
   constructor() {}
 
   ngOnInit(): void {
+    this.defaultTitle = this.blockData.data.title;
+
     this.subs.add(
       this.debounceOutput.pipe(debounceTime(2000)).subscribe((value) => {
         this.changeTitle.emit(value);
@@ -73,7 +72,7 @@ export class InfoBlockHeadComponent implements OnInit, OnDestroy {
   }
 
   public handleChangeTitle($event: any) {
-    this.blockData.data.title = $event.target.innerText;
+    this.blockData.data.title = $event.target.innerHTML;
 
     this.debounceOutput.next(this.blockData);
   }

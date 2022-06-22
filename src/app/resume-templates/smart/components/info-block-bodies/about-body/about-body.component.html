@@ -1,0 +1,14 @@
+<div class="info-block-body without-check-line">
+  <div class="info-block-body__item">
+    <div class="row row-title">
+      <p
+        appFictiveInput
+        [innerHtml]="defaultAbout"
+        [fictivePlaceholder]="
+          'A few words about tasks you enjoy doing the most and people you would love to work with.'
+        "
+        (input)="handleChangeValue($event)"
+      ></p>
+    </div>
+  </div>
+</div>

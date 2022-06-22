@@ -24,7 +24,8 @@ export class CertificatesBodyComponent
   @Input() data!: Certificates;
   @Input() isEditMode!: boolean;
 
-  public checkIcon = faCheckCircle;
+  public certificatesList!: CertificateItem[];
+  public selectedIcons = faCheckCircle;
 
   private defaultItem: CertificateItem = {
     description: '',
@@ -35,26 +36,29 @@ export class CertificatesBodyComponent
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.certificatesList = this.data.data.items.map((item) => ({ ...item }));
+  }
 
   public handleDelete(index: number, event: Event) {
     event.stopPropagation();
     this.data.data.items.splice(index, 1);
+    this.certificatesList.splice(index, 1);
     this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleChangeValue(index: number, field: 'description', event: any) {
-    this.data.data.items[index][field] = event.target.innerText;
+    this.data.data.items[index][field] = event.target.innerHTML;
     this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleAddItem() {
-    this.data.data.items.push({ ...this.defaultItem });
-    this.sendUpdateDataWithDebounce(this.data);
+    this.certificatesList.push({ ...this.defaultItem });
   }
 
   public handlePeriodChange(index: number, newDate: string) {
     this.data.data.items[index].date = newDate;
+    this.certificatesList[index].date = newDate;
     this.sendUpdateDataWithDebounce(this.data);
   }
 }

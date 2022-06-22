@@ -6,7 +6,7 @@
   <h3
     appFictiveInput
     class="info-block-header__title"
-    [textContent]="blockData.data.title"
+    [innerHtml]="defaultTitle"
     [fictivePlaceholder]="placeholder"
     (input)="handleChangeTitle($event)"
   ></h3>

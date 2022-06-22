@@ -61,9 +61,8 @@ export interface NewResumeInstance {
   blocks: ResumeBlcokItem & { next: number };
   disposition: {
     smart: {
-      header: number[];
-      main: number[];
-      right: number[];
+      main: Array<keyof ResumeBlcokItem>;
+      right: Array<keyof ResumeBlcokItem>;
     };
   };
 }
@@ -147,13 +146,17 @@ export interface Competence {
   type: 'competence';
   data: {
     title: string;
-    items: { name: string }[];
+    items: CompatenceItem[];
   };
 }
 
 export interface SkillItem {
   name: string;
   rate: number;
+}
+
+export interface CompatenceItem {
+  name: string;
 }
 
 export interface ContactsItem {

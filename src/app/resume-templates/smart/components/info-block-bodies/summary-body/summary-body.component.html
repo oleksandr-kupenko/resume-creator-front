@@ -1,12 +1,11 @@
 <div class="info-block-body">
   <div class="info-block-body__item">
     <div class="row row-title">
-      <fa-icon class="row__icon" [icon]="checkIcon"></fa-icon>
+      <fa-icon class="row__icon" [icon]="selectedIcons"></fa-icon>
 
       <p
         appFictiveInput
-        [class.filled]="data.data.summary"
-        [textContent]="data.data.summary"
+        [innerHtml]="defaultSummary"
         [fictivePlaceholder]="
           '3 meaningful sentences, an overview of your career. State your strengths and professional focus.'
         "

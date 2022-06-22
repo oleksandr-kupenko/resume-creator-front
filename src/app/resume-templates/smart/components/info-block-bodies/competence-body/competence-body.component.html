@@ -1,0 +1,18 @@
+<div class="info-block-body without-check-line">
+  <div class="circles">
+    <div
+      *ngFor="let item of competenceList; let idx = index"
+      class="circles__item"
+    >
+      <span class="data">
+        <span
+          class="data__text"
+          appFictiveInput
+          [textContent]="item.name"
+          [fictivePlaceholder]="'Sphere (e.g marketing)'"
+          (input)="handleChangeValue(idx, $event)"
+        ></span>
+      </span>
+    </div>
+  </div>
+</div>

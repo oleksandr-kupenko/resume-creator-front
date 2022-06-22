@@ -22,7 +22,8 @@ export class UniversalSkillsBodyComponent
   @Input() isEditMode!: boolean;
   @Input() rowPlaceholder = 'text';
 
-  public checkIcon = faCheckCircle;
+  public skillsList!: SkillItem[];
+  public selectedIcons = faCheckCircle;
 
   private defaultItem: SkillItem = {
     name: '',
@@ -33,11 +34,14 @@ export class UniversalSkillsBodyComponent
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.skillsList = this.data.data.items.map((item) => ({ ...item }));
+  }
 
   public handleDelete(index: number, event: Event) {
     event.stopPropagation();
     this.data.data.items.splice(index, 1);
+    this.skillsList.splice(index, 1);
     this.sendUpdateDataWithDebounce(this.data);
   }
 
@@ -48,11 +52,11 @@ export class UniversalSkillsBodyComponent
 
   public handleChangeRate(index: number, newRate: number) {
     this.data.data.items[index].rate = newRate;
+    this.skillsList[index].rate = newRate;
     this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleAddItem() {
-    this.data.data.items.push({ ...this.defaultItem });
-    this.sendUpdateDataWithDebounce(this.data);
+    this.skillsList.push({ ...this.defaultItem });
   }
 }

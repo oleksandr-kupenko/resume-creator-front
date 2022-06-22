@@ -11,6 +11,7 @@ import {
 })
 export class FictiveInputDirective implements AfterViewInit {
   @Input() fictivePlaceholder = '';
+  @Input() value = '';
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 

@@ -18,7 +18,7 @@ export const resume: NewResumeInstance = {
     items: [
       {
         type: CONTACT_TYPE.email,
-        value: '<b>test</b>',
+        value: '<strong>test</strong>',
       },
       {
         type: CONTACT_TYPE.phone,
@@ -150,13 +150,19 @@ export const resume: NewResumeInstance = {
         about: '',
       },
     },
-    next: 9,
+    10: {
+      type: BLCOK_TYPE.competence,
+      data: {
+        title: '',
+        items: [{ name: '' }, { name: '' }, { name: '' }, { name: '' }],
+      },
+    },
+    next: 11,
   },
   disposition: {
     smart: {
-      header: [1],
-      main: [2, 3, 4],
-      right: [5, 6, 7, 8],
+      main: [2, 3, 4, 5],
+      right: [6, 7, 8, 9, 10],
     },
   },
 };

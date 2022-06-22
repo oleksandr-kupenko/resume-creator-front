@@ -25,7 +25,8 @@ export class EducationBodyComponent
   @Input() data!: Education;
   @Input() isEditMode!: boolean;
 
-  public checkIcon = faCheckCircle;
+  public educationsList!: EducationItem[];
+  public selectedIcons = faCheckCircle;
 
   private defaultItem: EducationItem = {
     description: '',
@@ -37,11 +38,14 @@ export class EducationBodyComponent
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.educationsList = this.data.data.items.map((item) => ({ ...item }));
+  }
 
   public handleDelete(index: number, event: Event) {
     event.stopPropagation();
     this.data.data.items.splice(index, 1);
+    this.educationsList.splice(index, 1);
     this.sendUpdateDataWithDebounce(this.data);
   }
 
@@ -50,18 +54,18 @@ export class EducationBodyComponent
     field: 'institution' | 'description',
     event: any
   ) {
-    this.data.data.items[index][field] = event.target.innerText;
+    this.data.data.items[index][field] = event.target.innerHTML;
     this.sendUpdateDataWithDebounce(this.data);
   }
 
   public handleAddItem() {
     this.data.data.items.push({ ...this.defaultItem });
-    this.sendUpdateDataWithDebounce(this.data);
+    this.educationsList.push({ ...this.defaultItem });
   }
 
   public handlePeriodChange(index: number, newPeriod: Period) {
-    console.log(newPeriod);
     this.data.data.items[index].period = newPeriod;
+    this.educationsList[index].period = newPeriod;
     this.sendUpdateDataWithDebounce(this.data);
   }
 }

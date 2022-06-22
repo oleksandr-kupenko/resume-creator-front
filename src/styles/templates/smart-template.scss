@@ -1,3 +1,5 @@
+@import "core/variables.scss";
+
 .info-block-body {
   padding: 0.3125rem 0.3125rem 0.3125rem 1.5625rem;
   border-left: 0.125rem solid #3596f3;
@@ -6,22 +8,21 @@
   transition: border-color 0.2s ease-in-out, color 0.2s ease-in-out,
     background 0.2s ease-in-out;
 
+  .fictive-input {
+    color: $placeholder-grey;
+    &:not(:empty) {
+      color: $fill-black;
+    }
+  }
+
   &__item {
     position: relative;
-    color: var(--placeholder-grey);
     padding-top: 0.25rem;
     padding-bottom: 0.2rem;
 
     .row {
       padding: 0.1875rem 0;
-
-      p {
-        word-break: break-all;
-
-        &.filled {
-          color: var(--fill-black);
-        }
-      }
+      text-align: justify;
 
       &__date {
         float: right;
@@ -70,9 +71,9 @@
     padding-top: 1rem;
   }
 
-  &.skill {
+  &.without-check-line {
     border-left: none;
-    padding-left: 0.3625rem;
+    padding-left: 0;
 
     .info-block-body__item {
       padding: 0;

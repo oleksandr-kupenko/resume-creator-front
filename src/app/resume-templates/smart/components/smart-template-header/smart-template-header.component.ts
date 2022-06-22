@@ -21,20 +21,24 @@ export class SmartTemplateHeaderComponent
   public isAvatar = true;
   public isRole = true;
 
-  public avatarFile?: SafeResourceUrl;
+  public defaultFullName!: string;
+  public defaultPosition!: string;
 
-  constructor(
-    private sanitizer: DomSanitizer,
-    private resumeService: ResumeService
-  ) {
+  /* public avatarFile?: SafeResourceUrl; */
+  public imageBase64?: string;
+
+  constructor(private sanitizer: DomSanitizer) {
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.defaultFullName = this.data.fullname;
+    this.defaultPosition = this.data.position;
 
-  private saveHeaderWithDebounce = this.resumeService.setDebounceSaveHead(
-    this.data
-  );
+    if (this.data.photo.image) {
+      this.imageBase64 = this.data.photo.image;
+    }
+  }
 
   public handleChangeField(field: 'name' | 'role', event: any) {
     field == 'name'
@@ -46,9 +50,31 @@ export class SmartTemplateHeaderComponent
 
   public handleSelectFile(event: any) {
     if (event.target.files.length > 0) {
-      this.avatarFile = this.sanitizer.bypassSecurityTrustResourceUrl(
+      /*       this.avatarFile = this.sanitizer.bypassSecurityTrustResourceUrl(
         URL.createObjectURL(event.target.files[0])
-      );
+      ); */
+      const file = event.target.files[0];
+      console.log(event.target.files[0]);
+      if (!file.type.includes('image')) {
+        alert('type error');
+        return;
+      }
+
+      if (file.size > 200000) {
+        alert('size error');
+        return;
+      }
+      this.imageToBase64(event.target.files[0]);
+      this.sendUpdateDataWithDebounce(this.data);
     }
+  }
+
+  private imageToBase64(file: File) {
+    var reader = new FileReader();
+    reader.onloadend = () => {
+      this.imageBase64 = reader.result as string;
+      this.data.photo.image = this.imageBase64;
+    };
+    reader.readAsDataURL(file);
   }
 }

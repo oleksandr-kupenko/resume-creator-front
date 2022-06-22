@@ -1,3 +1,5 @@
+@import "core/variables";
+
 :host {
   display: block;
   margin: 0 1.25rem;
@@ -113,10 +115,10 @@
           padding: 0;
           min-width: 6.25rem;
           max-width: 100%;
-          color: var(--placeholder-grey);
+          color: $placeholder-grey;
 
-          &.filled {
-            color: var(--fill-black);
+          &:not(:empty) {
+            color: $fill-black;
           }
         }
       }

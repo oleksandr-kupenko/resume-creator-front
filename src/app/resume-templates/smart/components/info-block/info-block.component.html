@@ -1,0 +1,146 @@
+<ng-container *ngIf="infoBlock.type == BLCOK_TYPE.education">
+  <ng-container
+    *ngTemplateOutlet="infoBlockHead; context: { placeholder: 'Education' }"
+  ></ng-container>
+  <app-education-body
+    [data]="infoBlock"
+    [isEditMode]="isEditMode"
+    (changeBlcok)="blockChange.emit($event)"
+  ></app-education-body>
+</ng-container>
+
+<ng-container *ngIf="infoBlock.type == BLCOK_TYPE.experience">
+  <ng-container
+    *ngTemplateOutlet="
+      infoBlockHead;
+      context: { placeholder: 'Work experience' }
+    "
+  ></ng-container>
+  <app-experience-body
+    [data]="infoBlock"
+    [isEditMode]="isEditMode"
+    (changeBlcok)="blockChange.emit($event)"
+  ></app-experience-body>
+</ng-container>
+
+<ng-container *ngIf="infoBlock.type == BLCOK_TYPE.certificates">
+  <ng-container
+    *ngTemplateOutlet="infoBlockHead; context: { placeholder: 'Certificates' }"
+  ></ng-container>
+  <app-certificates-body
+    [data]="infoBlock"
+    [isEditMode]="isEditMode"
+    (changeBlcok)="blockChange.emit($event)"
+  ></app-certificates-body>
+</ng-container>
+
+<ng-container *ngIf="infoBlock.type == BLCOK_TYPE.summary">
+  <ng-container
+    *ngTemplateOutlet="infoBlockHead; context: { placeholder: 'Certificates' }"
+  ></ng-container>
+  <app-summary-body
+    [data]="infoBlock"
+    [isEditMode]="isEditMode"
+    (changeBlcok)="blockChange.emit($event)"
+  ></app-summary-body>
+</ng-container>
+
+<ng-container *ngIf="infoBlock.type == BLCOK_TYPE.about">
+  <ng-container
+    *ngTemplateOutlet="infoBlockHead; context: { placeholder: 'About' }"
+  ></ng-container>
+  <app-about-body
+    [data]="infoBlock"
+    [isEditMode]="isEditMode"
+    (changeBlcok)="blockChange.emit($event)"
+  ></app-about-body>
+</ng-container>
+
+<ng-container *ngIf="infoBlock.type == BLCOK_TYPE.competence">
+  <ng-container
+    *ngTemplateOutlet="
+      infoBlockHead;
+      context: { placeholder: 'Spheres of competence' }
+    "
+  ></ng-container>
+  <app-competence-body
+    [data]="infoBlock"
+    [isEditMode]="isEditMode"
+    (changeBlcok)="blockChange.emit($event)"
+  ></app-competence-body>
+</ng-container>
+
+<ng-container *ngIf="infoBlock.type == BLCOK_TYPE.profskills">
+  <ng-container
+    *ngTemplateOutlet="
+      infoBlockHead;
+      context: { placeholder: 'Professional Skills' }
+    "
+  ></ng-container>
+
+  <ng-container
+    *ngTemplateOutlet="
+      skills;
+      context: {
+        infoBlock: infoBlock,
+        rowPlaceholder: 'Skill'
+      }
+    "
+  ></ng-container>
+</ng-container>
+
+<ng-container *ngIf="infoBlock.type == BLCOK_TYPE.techskills">
+  <ng-container
+    *ngTemplateOutlet="
+      infoBlockHead;
+      context: { placeholder: 'Technical skills' }
+    "
+  ></ng-container>
+
+  <ng-container
+    *ngTemplateOutlet="
+      skills;
+      context: {
+        infoBlock: infoBlock,
+        rowPlaceholder: 'Application'
+      }
+    "
+  ></ng-container>
+</ng-container>
+
+<ng-container *ngIf="infoBlock.type == BLCOK_TYPE.langskills">
+  <ng-container
+    *ngTemplateOutlet="infoBlockHead; context: { placeholder: 'Languages' }"
+  ></ng-container>
+
+  <ng-container
+    *ngTemplateOutlet="
+      skills;
+      context: {
+        infoBlock: infoBlock,
+        rowPlaceholder: 'Language'
+      }
+    "
+  ></ng-container>
+</ng-container>
+
+<ng-template #infoBlockHead let-placeholder="placeholder">
+  <app-info-block-head
+    [placeholder]="placeholder"
+    [blockData]="infoBlock"
+    (changeTitle)="blockChange.emit($event)"
+  ></app-info-block-head>
+</ng-template>
+
+<ng-template
+  #skills
+  let-infoBlock="infoBlock"
+  let-rowPlaceholder="rowPlaceholder"
+>
+  <app-universal-skills
+    [data]="infoBlock"
+    [isEditMode]="isEditMode"
+    [rowPlaceholder]="rowPlaceholder"
+    (changeBlcok)="blockChange.emit($event)"
+  ></app-universal-skills>
+</ng-template>
