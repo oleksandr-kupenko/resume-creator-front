@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { HtmlTagsPipe } from 'src/app/shared/pipes/htmlTags.pipe';
 
 @NgModule({
-  declarations: [HtmlTagsPipe],
+  declarations: [],
   imports: [],
-  exports: [HtmlTagsPipe],
+  exports: [],
 })
 export class PipesModule {}
