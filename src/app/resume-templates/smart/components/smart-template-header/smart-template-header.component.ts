@@ -1,9 +1,7 @@
 import { Component, Input, OnInit, Sanitizer } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { HeadInfo } from 'src/app/resume-templates/resume.interface';
-import { ResumeService } from 'src/app/resume-templates/resume.service';
 import { DebounceSaveDirective } from 'src/app/shared/directives/debounce-save-resume.direciver';
-import { debounce } from 'src/app/shared/utils/utils';
 
 @Component({
   selector: 'app-smart-template-header',

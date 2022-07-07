@@ -79,5 +79,65 @@
     width: 230px;
     height: 100%;
     background-color: $menu-middle-grey;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    &__title {
+      color: white;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 55px;
+    }
+
+    .colors-list {
+      width: 170px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      &__item {
+        width: 30px;
+        height: 30px;
+        margin: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 50%;
+
+        &.active {
+          border: 2px solid #fff;
+        }
+
+        &.violet2 {
+          background-color: $template-violet2;
+        }
+        &.navy2 {
+          background-color: $template-navy2;
+        }
+        &.navy {
+          background-color: $template-navy;
+        }
+        &.blue {
+          background-color: $template-blue;
+        }
+        &.blue2 {
+          background-color: $template-blue2;
+        }
+        &.violet {
+          background-color: $template-violet;
+        }
+        &.green {
+          background-color: $template-green;
+        }
+        &.ochre {
+          background-color: $template-ochre;
+        }
+      }
+    }
   }
 }

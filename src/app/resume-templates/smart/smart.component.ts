@@ -31,7 +31,7 @@ export class SmartComponent implements OnInit, OnDestroy {
   constructor(private resumeSerive: ResumeService) {}
 
   ngOnInit(): void {
-    this.initialValues();
+    this.getResume();
     this.subscribeForDebounceSaveResume();
   }
 
@@ -107,6 +107,15 @@ export class SmartComponent implements OnInit, OnDestroy {
         this.resumeSerive.setResume(this.resume);
       })
     );
+  }
+
+  private getResume() {
+    this.resumeSerive.getResume().subscribe({
+      next: (resume) => {
+        this.resume = resume;
+        this.initialValues();
+      },
+    });
   }
 }
 

@@ -19,19 +19,5 @@ export class ResumeService {
     this._resume$$.next(reume);
   }
 
-  setDebounceSaveHead(newHeadInfo: HeadInfo) {
-    console.log('new', newHeadInfo);
-
-    let timeout: ReturnType<typeof setTimeout> | undefined = undefined;
-
-    return function () {
-      const saveResume = () => {
-        console.log('пошла обработка данных и отправка на сервер...');
-      };
-
-      clearTimeout(timeout);
-
-      timeout = setTimeout(saveResume, 1500);
-    };
-  }
+  
 }

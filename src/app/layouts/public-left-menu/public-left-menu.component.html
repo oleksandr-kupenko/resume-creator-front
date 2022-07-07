@@ -13,6 +13,7 @@
     [class.active]="idx == currentActiveIndex"
     [class.notEditMode]="!isEditMode"
     [matTooltip]="button.tooltip"
+    [matTooltipDisabled]="isEditMode"
     [matTooltipPosition]="'right'"
     matTooltipClass="left-menu-tooltip"
     (click)="handleOpenSubMenu($event, idx)"
@@ -32,4 +33,33 @@
   class="left-sub-menu"
   appBackDrop
   (clickOutside)="handleCloseEditMode()"
-></div>
+>
+  <ng-container [ngSwitch]="currentActiveIndex">
+    <ng-container
+      *ngSwitchCase="MENU_ITEMS.template"
+      [ngTemplateOutlet]="templates"
+    ></ng-container>
+    <ng-container
+      *ngSwitchCase="MENU_ITEMS.styles"
+      [ngTemplateOutlet]="styles"
+    ></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #templates>
+  <p class="left-sub-menu__title">Choose template</p>
+</ng-template>
+
+<ng-template #styles>
+  <p class="left-sub-menu__title">Colors</p>
+  <div class="colors-list">
+    <button
+      #colorBtnRef
+      *ngFor="let color of colorsList"
+      class="colors-list__item"
+      [class]="[color]"
+      [class.active]="color == currentColorItemName"
+      (click)="handleChangeColor(color, colorBtnRef)"
+    ></button>
+  </div>
+</ng-template>

@@ -70,8 +70,8 @@
 
         &:hover,
         &.active {
-          color: #1b87f1;
-          border-color: #1b87f1;
+          color: var(--main-color);
+          border-color: var(--main-color);
         }
       }
     }

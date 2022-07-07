@@ -18,6 +18,9 @@ import { SummaryBodyComponent } from 'src/app/resume-templates/smart/components/
 import { UniversalSkillsBodyComponent } from 'src/app/resume-templates/smart/components/info-block-bodies/universal-skills-body/universal-skills-body.component';
 import { AboutBodyComponent } from 'src/app/resume-templates/smart/components/info-block-bodies/about-body/about-body.component';
 import { CompetenceBodyComponent } from 'src/app/resume-templates/smart/components/info-block-bodies/competence-body/competence-body.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [{ path: '', component: SmartComponent }];
 
 @NgModule({
   declarations: [
@@ -42,6 +45,7 @@ import { CompetenceBodyComponent } from 'src/app/resume-templates/smart/componen
     SharedModule,
     FontAwesomeModule,
     OverlayModule,
+    RouterModule.forChild(routes),
   ],
   exports: [SmartComponent],
 })
