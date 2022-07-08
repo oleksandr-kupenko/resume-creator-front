@@ -47,13 +47,17 @@ h6 {
 html {
   font-size: 16px;
   @include bp-1024 {
-    font-size: calc(100vw / 68.54);
+    font-size: calc(100vw / 69);
+  }
+
+  @include bp-768 {
+    font-size: calc(100vw / 73);
   }
 }
 
 html,
 body {
-  min-height: 100%;
+  min-height: 100vh;
   touch-action: pan-y;
 
   font-weight: 400;

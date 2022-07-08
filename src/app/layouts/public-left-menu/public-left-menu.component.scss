@@ -3,6 +3,7 @@
 
 :host {
   display: flex;
+  min-height: 100vh;
 
   .left-menu {
     display: flex;
