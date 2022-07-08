@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { take } from 'rxjs';
 import {
   NewResumeInstance,
@@ -16,6 +16,8 @@ import { SheetsIconComponent } from 'src/app/shared/icons/sheets/sheets.componen
   styleUrls: ['./public-left-menu.component.scss'],
 })
 export class PublicLeftMenuComponent implements OnInit {
+  @Input() resume!: NewResumeInstance;
+
   public isEditMode = false;
 
   public currentActiveIndex: null | number = null;

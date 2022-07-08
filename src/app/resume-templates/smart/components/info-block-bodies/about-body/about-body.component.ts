@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { About, Summary } from 'src/app/resume-templates/resume.interface';
-import { DebounceSaveDirective } from 'src/app/shared/directives/debounce-save-resume.direciver';
+import { DebounceSaveDirective } from 'src/app/resume-templates/debounce-save-resume.base';
 
 @Component({
   selector: 'app-about-body',

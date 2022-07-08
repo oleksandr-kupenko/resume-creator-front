@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { SkillItem, Skills } from 'src/app/resume-templates/resume.interface';
-import { DebounceSaveDirective } from 'src/app/shared/directives/debounce-save-resume.direciver';
+import { DebounceSaveDirective } from 'src/app/resume-templates/debounce-save-resume.base';
 
 @Component({
   selector: 'app-universal-skills',
@@ -58,5 +58,6 @@ export class UniversalSkillsBodyComponent
 
   public handleAddItem() {
     this.skillsList.push({ ...this.defaultItem });
+    this.data.data.items.push({ ...this.defaultItem });
   }
 }

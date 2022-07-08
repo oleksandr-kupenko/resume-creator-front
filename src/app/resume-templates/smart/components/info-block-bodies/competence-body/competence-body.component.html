@@ -4,11 +4,20 @@
       *ngFor="let item of competenceList; let idx = index"
       class="circles__item"
     >
+      <button
+        *ngIf="isEditMode"
+        class="delete-btn"
+        [class.top]="idx % 2 != 1"
+        [class.bottom]="idx % 2 == 1"
+        (click)="handleDelete($event)"
+      >
+        <app-close-iocn></app-close-iocn>
+      </button>
       <span class="data">
         <span
           class="data__text"
           appFictiveInput
-          [textContent]="item.name"
+          [innerHtml]="item.name"
           [isWhiteText]="true"
           [fictivePlaceholder]="'Sphere (e.g marketing)'"
           (input)="handleChangeValue(idx, $event)"
@@ -16,4 +25,10 @@
       </span>
     </div>
   </div>
+
+  <app-add-btn
+    *ngIf="isEditMode"
+    [disabled]="competenceList.length > 3"
+    (click)="handleAddItem()"
+  ></app-add-btn>
 </div>

@@ -82,5 +82,10 @@
 
 <ng-template #addSection>
   <p class="left-sub-menu__title">Add section</p>
-  <app-drop-down-menu #menu></app-drop-down-menu>
+  <app-drop-down-menu
+    [resume]="resume"
+    [matTooltip]="'Chose format for your custom section'"
+    [matTooltipPosition]="'right'"
+    matTooltipClass="left-menu-tooltip"
+  ></app-drop-down-menu>
 </ng-template>

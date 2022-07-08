@@ -1,9 +1,20 @@
-<div class="dropdown-menu" [class.open]="isOpen">
+<div
+  class="dropdown-menu"
+  [class.open]="isOpen"
+  appBackDrop
+  (clickOutside)="isOpen = false"
+>
   <p role="button" class="dropdown-menu__btn" (click)="handleShowHide()">
     Custom
   </p>
 
   <ul class="dropdown-menu__list">
-    <li *ngFor="let section of sectionsList">{{ section.title }}</li>
+    <li
+      *ngFor="let section of sectionsList"
+      role="button"
+      (click)="handleAddNewSection(section.type)"
+    >
+      {{ section.title }}
+    </li>
   </ul>
 </div>

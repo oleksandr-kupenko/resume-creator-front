@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import {
   NewResumeInstance,
   TEMPLATE_COLOR,
@@ -11,7 +12,7 @@ import { ResumeService } from 'src/app/resume-templates/resume.service';
   templateUrl: './templates.component.html',
   styleUrls: ['./templates.component.scss'],
 })
-export class TemplatesComponent implements OnInit {
+export class TemplatesComponent implements OnInit, OnDestroy {
   public resume!: NewResumeInstance;
 
   private colorsStyles: { [key in TEMPLATE_COLOR]: string } = {
@@ -25,17 +26,25 @@ export class TemplatesComponent implements OnInit {
     ochre: '#b8b79a',
   };
 
+  private sub = new Subscription();
+
   constructor(private resumeService: ResumeService) {}
 
   ngOnInit(): void {
-    this.resumeService.getResume().subscribe({
-      next: (resume) => {
-        this.resume = resume;
-        console.log(1, this.resume);
-        this.setTemplateColor();
-        this.setTemolateFont();
-      },
-    });
+    this.sub.add(
+      this.resumeService.getResume().subscribe({
+        next: (resume) => {
+          this.resume = resume;
+          console.log(1, this.resume);
+          this.setTemplateColor();
+          this.setTemolateFont();
+        },
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   private setTemplateColor() {

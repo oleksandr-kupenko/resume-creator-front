@@ -6,10 +6,10 @@ import {
 } from '@angular/core';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import {
-  CompatenceItem,
   Competence,
+  CompetenceItem,
 } from 'src/app/resume-templates/resume.interface';
-import { DebounceSaveDirective } from 'src/app/shared/directives/debounce-save-resume.direciver';
+import { DebounceSaveDirective } from 'src/app/resume-templates/debounce-save-resume.base';
 
 @Component({
   selector: 'app-competence-body',
@@ -24,9 +24,13 @@ export class CompetenceBodyComponent
   @Input() data!: Competence;
   @Input() isEditMode!: boolean;
 
-  public competenceList!: CompatenceItem[];
+  public competenceList!: CompetenceItem[];
 
   public selectedIcons = faCheckCircle;
+
+  private defaultItem: CompetenceItem = {
+    name: '',
+  };
 
   constructor() {
     super();
@@ -37,7 +41,18 @@ export class CompetenceBodyComponent
   }
 
   public handleChangeValue(index: number, event: any) {
-    //this.data.data.items[index] = event.target.innerHTML;
+    this.data.data.items[index] = event.target.innerHTML;
     this.sendUpdateDataWithDebounce(this.data);
+  }
+
+  public handleDelete(event: Event) {
+    event.stopPropagation();
+    this.data.data.items.pop();
+    this.competenceList.pop();
+    this.sendUpdateDataWithDebounce(this.data);
+  }
+
+  public handleAddItem() {
+    this.competenceList.push({ ...this.defaultItem });
   }
 }

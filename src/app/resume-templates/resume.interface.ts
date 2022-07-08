@@ -167,7 +167,7 @@ export interface Competence {
   type: 'competence';
   data: {
     title: string;
-    items: CompatenceItem[];
+    items: CompetenceItem[];
   };
 }
 
@@ -176,7 +176,7 @@ export interface SkillItem {
   rate: number;
 }
 
-export interface CompatenceItem {
+export interface CompetenceItem {
   name: string;
 }
 
