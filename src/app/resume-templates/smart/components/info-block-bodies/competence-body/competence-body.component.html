@@ -9,6 +9,7 @@
           class="data__text"
           appFictiveInput
           [textContent]="item.name"
+          [isWhiteText]="true"
           [fictivePlaceholder]="'Sphere (e.g marketing)'"
           (input)="handleChangeValue(idx, $event)"
         ></span>

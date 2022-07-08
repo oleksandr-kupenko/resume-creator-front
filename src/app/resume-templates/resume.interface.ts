@@ -65,6 +65,27 @@ export interface NewResumeInstance {
       right: Array<keyof ResumeBlcokItem>;
     };
   };
+  custom: { color: TEMPLATE_COLOR; font: TEMPLATE_FONT };
+}
+
+export enum TEMPLATE_COLOR {
+  violet2 = 'violet2',
+  navy2 = 'navy2',
+  navy = 'navy',
+  blue = 'blue',
+  blue2 = 'blue2',
+  violet = 'violet',
+  green = 'green',
+  ochre = 'ochre',
+}
+
+export enum TEMPLATE_FONT {
+  gambria = 'Cambria',
+  garamond = 'Garamond',
+  minionPro = 'MinionPro',
+  myriadPro = 'Myriad Pro',
+  helvetica = 'Helvetica',
+  roboto = 'Roboto',
 }
 
 export interface ResumeBlcokItem {

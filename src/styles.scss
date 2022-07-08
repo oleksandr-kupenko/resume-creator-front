@@ -9,12 +9,12 @@
   --btn-hover-color: #0d6dcc;
   --dark-btn-color: #2253c8;
   --dark-btn-hover-color: #1b419c;
+  --main-font: Cambria;
 }
 
 * {
   box-sizing: border-box;
-  transition: background-color 0.5s ease;
-  transition: color 0.5s ease;
+  transition: color 0.2s ease, background-color 0.2s linear, fill 0.2s linear;
 }
 
 html,

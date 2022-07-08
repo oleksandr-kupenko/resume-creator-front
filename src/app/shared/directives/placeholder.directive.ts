@@ -12,13 +12,14 @@ import {
 export class FictiveInputDirective implements AfterViewInit {
   @Input() fictivePlaceholder = '';
   @Input() value = '';
+  @Input() isWhiteText = false;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
   ngAfterViewInit(): void {
     this.addPlaceholderContent();
     this.addContenteditableAttribute();
-    this.addStyle();
+    this.addClasses();
   }
 
   private addPlaceholderContent() {
@@ -38,7 +39,10 @@ export class FictiveInputDirective implements AfterViewInit {
     );
   }
 
-  private addStyle() {
+  private addClasses() {
     this.renderer.addClass(this.elementRef.nativeElement, 'fictive-input');
+    if (this.isWhiteText) {
+      this.renderer.addClass(this.elementRef.nativeElement, 'white-text');
+    }
   }
 }

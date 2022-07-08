@@ -43,6 +43,10 @@
       *ngSwitchCase="MENU_ITEMS.styles"
       [ngTemplateOutlet]="styles"
     ></ng-container>
+    <ng-container
+      *ngSwitchCase="MENU_ITEMS.addSection"
+      [ngTemplateOutlet]="addSection"
+    ></ng-container>
   </ng-container>
 </div>
 
@@ -59,7 +63,24 @@
       class="colors-list__item"
       [class]="[color]"
       [class.active]="color == currentColorItemName"
-      (click)="handleChangeColor(color, colorBtnRef)"
+      (click)="handleChangeColor(color)"
     ></button>
   </div>
+  <p class="left-sub-menu__title">Fonts</p>
+  <div class="fonts-list">
+    <button
+      *ngFor="let font of fontsList"
+      class="square-btn fonts-list__item"
+      [style]="{ 'font-family': font }"
+      [class.active]="font == currentFontItemName"
+      (click)="handleChangeFont(font)"
+    >
+      {{ font }}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #addSection>
+  <p class="left-sub-menu__title">Add section</p>
+  <app-drop-down-menu #menu></app-drop-down-menu>
 </ng-template>
