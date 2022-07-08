@@ -1,89 +1,112 @@
-.circles {
-  height: 16.0625rem;
+.info-block-body {
+  position: relative;
 
-  &__item {
-    display: inline-block;
-    vertical-align: top;
-    white-space: nowrap;
-    margin: 0.3125rem;
-    border-radius: 5em;
-    width: 8.4375rem;
-    text-align: center;
-    position: relative;
+  .circles {
+    height: 16.0625rem;
 
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--main-color);
-      opacity: 0.7;
-      z-index: 0;
-      border-radius: 50%;
-    }
-
-    &::after {
-      content: "";
+    &__item {
       display: inline-block;
-      vertical-align: middle;
-      width: 0;
-      min-height: 8.4375rem;
-    }
+      vertical-align: top;
+      white-space: nowrap;
+      margin: 0.3125rem;
+      border-radius: 5em;
+      width: 8.4375rem;
+      text-align: center;
+      position: relative;
 
-    &:nth-child(1n) {
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--main-color);
+        opacity: 0.7;
+        z-index: 0;
+        border-radius: 50%;
+      }
+
       &::after {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        width: 0;
         min-height: 8.4375rem;
       }
-    }
 
-    &:nth-child(2n) {
-      top: 5.5rem;
-      left: -5.5rem;
-      width: 7.5rem;
-
-      &::after {
-        min-height: 7.5rem;
+      &:nth-child(1n) {
+        &::after {
+          min-height: 8.4375rem;
+        }
       }
-    }
 
-    &:nth-child(3n) {
-      top: -7.1875rem;
-      left: 8.4375rem;
-      width: 6.5625rem;
+      &:nth-child(2n) {
+        top: 5.5rem;
+        left: -5.5rem;
+        width: 7.5rem;
 
-      &::after {
-        min-height: 6.5625rem;
+        &::after {
+          min-height: 7.5rem;
+        }
       }
-    }
 
-    &:nth-child(4n) {
-      top: -1.75rem;
-      left: 4.1875rem;
-      width: 5.625rem;
+      &:nth-child(3n) {
+        top: -7.1875rem;
+        left: 8.4375rem;
+        width: 6.5625rem;
 
-      &::after {
-        min-height: 5.625rem;
+        &::after {
+          min-height: 6.5625rem;
+        }
       }
-    }
 
-    .data {
-      display: inline-block;
-      max-width: 100%;
-      width: 100%;
-      padding: 0 0.35rem;
-      line-height: 1.25rem;
-      overflow: hidden;
-      position: relative;
-      white-space: normal;
-      vertical-align: middle;
+      &:nth-child(4n) {
+        top: -1.75rem;
+        left: 4.1875rem;
+        width: 5.625rem;
 
-      &__text {
-        display: block !important;
+        &::after {
+          min-height: 5.625rem;
+        }
+      }
+
+      .delete-btn {
+        position: absolute;
+
+        &.top {
+          right: -6px;
+          top: -10px;
+        }
+
+        &.bottom {
+          left: -6px;
+          bottom: -7px;
+        }
+      }
+
+      .data {
+        display: inline-block;
+        max-width: 100%;
+        width: 100%;
+        padding: 0 0.35rem;
+        line-height: 1.25rem;
         overflow: hidden;
-        max-height: 4.75rem;
+        position: relative;
+        white-space: normal;
+        vertical-align: middle;
+
+        &__text {
+          display: block !important;
+          overflow: hidden;
+          max-height: 4.75rem;
+        }
       }
     }
+  }
+
+  app-add-btn {
+    position: absolute;
+    bottom: 0;
   }
 }

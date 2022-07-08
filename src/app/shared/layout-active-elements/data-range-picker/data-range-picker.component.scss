@@ -17,7 +17,8 @@
   }
 
   &__calendar {
-    width: 14.375rem;
+    max-width: 14.375rem;
+    min-width: 230px;
 
     .present-checbox {
       display: flex;

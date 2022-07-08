@@ -1,4 +1,11 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { take } from 'rxjs';
+import {
+  NewResumeInstance,
+  TEMPLATE_COLOR,
+  TEMPLATE_FONT,
+} from 'src/app/resume-templates/resume.interface';
+import { ResumeService } from 'src/app/resume-templates/resume.service';
 import { PalletIconComponent } from 'src/app/shared/icons/pallet/pallet.component';
 import { PlusIconComponent } from 'src/app/shared/icons/plus/plus.component';
 import { SheetsIconComponent } from 'src/app/shared/icons/sheets/sheets.component';
@@ -9,13 +16,17 @@ import { SheetsIconComponent } from 'src/app/shared/icons/sheets/sheets.componen
   styleUrls: ['./public-left-menu.component.scss'],
 })
 export class PublicLeftMenuComponent implements OnInit {
+  @Input() resume!: NewResumeInstance;
+
   public isEditMode = false;
 
   public currentActiveIndex: null | number = null;
   public currentActiveMenuName!: MENU_ITEMS;
-  public currentColorItemName = 'blue';
+  public currentColorItemName: TEMPLATE_COLOR = TEMPLATE_COLOR.blue;
+  public currentFontItemName: TEMPLATE_FONT = TEMPLATE_FONT.gambria;
 
   public MENU_ITEMS = MENU_ITEMS;
+  public TEMPLATE_FONT = TEMPLATE_FONT;
 
   public menuItems = [
     {
@@ -35,20 +46,16 @@ export class PublicLeftMenuComponent implements OnInit {
     },
   ];
 
-  public colorsList = [
-    'violet2',
-    'navy2',
-    'navy',
-    'blue',
-    'blue2',
-    'violet',
-    'green',
-    'ochre',
-  ];
+  public colorsList = Object.values(TEMPLATE_COLOR);
+  public fontsList = Object.values(TEMPLATE_FONT);
 
-  constructor() {}
+  private currentResume!: NewResumeInstance;
 
-  ngOnInit(): void {}
+  constructor(private resumeService: ResumeService) {}
+
+  ngOnInit(): void {
+    this.initialiseReumeData();
+  }
 
   public handleOpenSubMenu(event: Event, index: number) {
     event.stopPropagation();
@@ -62,10 +69,27 @@ export class PublicLeftMenuComponent implements OnInit {
     this.currentActiveIndex = null;
   }
 
-  public handleChangeColor(newColorItemName: string, ref: HTMLElement) {
+  public handleChangeColor(newColorItemName: TEMPLATE_COLOR) {
     this.currentColorItemName = newColorItemName;
-    const newColor = window.getComputedStyle(ref).backgroundColor;
-    document.documentElement.style.setProperty('--main-color', newColor);
+    this.currentResume.custom.color = newColorItemName;
+    this.resumeService.setResume(this.currentResume);
+  }
+
+  public handleChangeFont(newFontItemName: TEMPLATE_FONT) {
+    this.currentFontItemName = newFontItemName;
+    this.currentResume.custom.font = newFontItemName;
+    this.resumeService.setResume(this.currentResume);
+  }
+
+  private initialiseReumeData() {
+    this.resumeService
+      .getResume()
+      .pipe(take(1))
+      .subscribe((resume) => {
+        this.currentResume = resume;
+        this.currentColorItemName = this.currentResume.custom.color;
+        this.currentFontItemName = this.currentResume.custom.font;
+      });
   }
 }
 
@@ -74,3 +98,7 @@ enum MENU_ITEMS {
   styles,
   addSection,
 }
+
+type FontsNameList = {
+  [key in TEMPLATE_FONT]: { title: string; font: string };
+};

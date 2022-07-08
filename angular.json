@@ -13,7 +13,7 @@
           "strict": true
         }
       },
-      "root": "",
+      "root": "resume-creator-front",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {

@@ -11,7 +11,7 @@ import {
   ExperienceItem,
   Period,
 } from 'src/app/resume-templates/resume.interface';
-import { DebounceSaveDirective } from 'src/app/shared/directives/debounce-save-resume.direciver';
+import { DebounceSaveDirective } from 'src/app/resume-templates/debounce-save-resume.base';
 
 @Component({
   selector: 'app-experience-body',

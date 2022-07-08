@@ -2,6 +2,8 @@ import {
   BLCOK_TYPE,
   CONTACT_TYPE,
   NewResumeInstance,
+  TEMPLATE_COLOR,
+  TEMPLATE_FONT,
 } from 'src/app/resume-templates/resume.interface';
 
 export const resume: NewResumeInstance = {
@@ -13,12 +15,13 @@ export const resume: NewResumeInstance = {
     fullname: '',
     position: '',
   },
+  custom: { color: TEMPLATE_COLOR.blue, font: TEMPLATE_FONT.helvetica },
   contacts: {
     type: 'contacts',
     items: [
       {
         type: CONTACT_TYPE.email,
-        value: '<strong>test</strong>',
+        value: '',
       },
       {
         type: CONTACT_TYPE.phone,

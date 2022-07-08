@@ -9,12 +9,12 @@
   --btn-hover-color: #0d6dcc;
   --dark-btn-color: #2253c8;
   --dark-btn-hover-color: #1b419c;
+  --main-font: Cambria;
 }
 
 * {
   box-sizing: border-box;
-  transition: background-color 0.5s ease;
-  transition: color 0.5s ease;
+  transition: color 0.2s ease, background-color 0.2s linear, fill 0.2s linear;
 }
 
 html,
@@ -47,13 +47,17 @@ h6 {
 html {
   font-size: 16px;
   @include bp-1024 {
-    font-size: calc(100vw / 68.54);
+    font-size: calc(100vw / 69);
+  }
+
+  @include bp-768 {
+    font-size: calc(100vw / 73);
   }
 }
 
 html,
 body {
-  min-height: 100%;
+  min-height: 100vh;
   touch-action: pan-y;
 
   font-weight: 400;
