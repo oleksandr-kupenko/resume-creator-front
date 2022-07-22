@@ -5,7 +5,7 @@
   <app-education-body
     [data]="infoBlock"
     [isEditMode]="isEditMode"
-    (changeBlcok)="blockChange.emit($event)"
+    (onChangeBlcok)="blockChange.emit($event)"
   ></app-education-body>
 </ng-container>
 
@@ -19,7 +19,7 @@
   <app-experience-body
     [data]="infoBlock"
     [isEditMode]="isEditMode"
-    (changeBlcok)="blockChange.emit($event)"
+    (onChangeBlcok)="blockChange.emit($event)"
   ></app-experience-body>
 </ng-container>
 
@@ -30,18 +30,18 @@
   <app-certificates-body
     [data]="infoBlock"
     [isEditMode]="isEditMode"
-    (changeBlcok)="blockChange.emit($event)"
+    (onChangeBlcok)="blockChange.emit($event)"
   ></app-certificates-body>
 </ng-container>
 
 <ng-container *ngIf="infoBlock.type == BLCOK_TYPE.summary">
   <ng-container
-    *ngTemplateOutlet="infoBlockHead; context: { placeholder: 'Certificates' }"
+    *ngTemplateOutlet="infoBlockHead; context: { placeholder: 'Summary' }"
   ></ng-container>
   <app-summary-body
     [data]="infoBlock"
     [isEditMode]="isEditMode"
-    (changeBlcok)="blockChange.emit($event)"
+    (onChangeBlcok)="blockChange.emit($event)"
   ></app-summary-body>
 </ng-container>
 
@@ -52,7 +52,7 @@
   <app-about-body
     [data]="infoBlock"
     [isEditMode]="isEditMode"
-    (changeBlcok)="blockChange.emit($event)"
+    (onChangeBlcok)="blockChange.emit($event)"
   ></app-about-body>
 </ng-container>
 
@@ -66,7 +66,7 @@
   <app-competence-body
     [data]="infoBlock"
     [isEditMode]="isEditMode"
-    (changeBlcok)="blockChange.emit($event)"
+    (onChangeBlcok)="blockChange.emit($event)"
   ></app-competence-body>
 </ng-container>
 
@@ -141,6 +141,6 @@
     [data]="infoBlock"
     [isEditMode]="isEditMode"
     [rowPlaceholder]="rowPlaceholder"
-    (changeBlcok)="blockChange.emit($event)"
+    (onChangeBlcok)="blockChange.emit($event)"
   ></app-universal-skills>
 </ng-template>

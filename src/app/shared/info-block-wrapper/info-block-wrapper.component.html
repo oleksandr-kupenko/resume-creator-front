@@ -2,27 +2,27 @@
   class="info-block"
   appBackDrop
   [class.edit]="isEditMode"
-  (clickOutside)="isEditMode = false"
-  (click)="isEditMode = true"
+  (clickOutside)="handleChangeIsEditModeStatus(false)"
+  (click)="handleChangeIsEditModeStatus(true)"
 >
   <ng-container *ngIf="isEditMode">
     <div class="info-block__order-buttons">
       <button
         class="info-block__order-buttons--top-btn"
         [disabled]="isFirst"
-        (click)="moveBlockUp.emit()"
+        (click)="onMoveBlockUp.emit()"
       >
         <fa-icon [icon]="arrowTop"></fa-icon>
       </button>
       <button
         class="info-block__order-buttons--bottom-btn"
         [disabled]="isLast"
-        (click)="moveBlockDown.emit()"
+        (click)="onMoveBlockDown.emit()"
       >
         <fa-icon [icon]="arrowDown"></fa-icon>
       </button>
     </div>
-    <button class="info-block__delete-btn" (click)="deleteBlock.emit()">
+    <button class="info-block__delete-btn" (click)="onDeleteBlock.emit()">
       <fa-icon [icon]="cartButton"></fa-icon>
     </button>
   </ng-container>

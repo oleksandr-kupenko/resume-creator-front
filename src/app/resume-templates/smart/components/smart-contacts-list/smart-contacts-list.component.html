@@ -1,11 +1,12 @@
 <div
   class="contacts-wrapper"
+  [class.edit]="isEditMode"
   appBackDrop
-  (click)="handleOpenEditMode()"
-  (clickOutside)="isEditMode = false"
+  (click)="handleChangeIsEditModeStatus(true)"
+  (clickOutside)="handleChangeIsEditModeStatus(false)"
 >
   <div class="contacts">
-    <hr class="m-bottom-5" />
+    <hr class="contacts__hr top" />
 
     <div class="contacts__list">
       <div
@@ -44,6 +45,6 @@
       ></app-add-btn>
     </div>
 
-    <hr class="m-top-5" />
+    <hr class="contacts__hr bottom" />
   </div>
 </div>

@@ -1,5 +1,4 @@
 import { Directive, EventEmitter, OnInit, Output } from '@angular/core';
-import { debounceTime, Subject } from 'rxjs';
 import {
   Contacts,
   HeadInfo,
@@ -8,9 +7,9 @@ import {
 
 @Directive()
 export class DebounceSaveDirective {
-  @Output() changeBlcok = new EventEmitter<ResumeInfoBlock>();
-  @Output() changeHeadInfo = new EventEmitter<HeadInfo>();
-  @Output() changeContacts = new EventEmitter<Contacts>();
+  @Output() onChangeBlcok = new EventEmitter<ResumeInfoBlock>();
+  @Output() onChangeHeadInfo = new EventEmitter<HeadInfo>();
+  @Output() onChangeContacts = new EventEmitter<Contacts>();
 
   private debounceTime = 2000;
 
@@ -32,11 +31,11 @@ export class DebounceSaveDirective {
   private sendUpdateData(data: HeadInfo | Contacts | ResumeInfoBlock): void {
     switch (data.type) {
       case 'headInfo':
-        return this.changeHeadInfo.emit(data);
+        return this.onChangeHeadInfo.emit(data);
       case 'contacts':
-        return this.changeContacts.emit(data);
+        return this.onChangeContacts.emit(data);
       default:
-        return this.changeBlcok.emit(data);
+        return this.onChangeBlcok.emit(data);
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { debounceTime, Subject, Subscription } from 'rxjs';
 import {
   BLCOK_TYPE,
@@ -7,20 +7,26 @@ import {
   NewResumeInstance,
   ResumeBlcokItem,
   ResumeInfoBlock,
+  SmartDespozition,
 } from 'src/app/resume-templates/resume.interface';
 import { ResumeService } from 'src/app/resume-templates/resume.service';
 
+interface Sgeet {}
 @Component({
   selector: 'app-smart',
   templateUrl: './smart.component.html',
   styleUrls: ['./smart.component.scss'],
 })
 export class SmartComponent implements OnInit, OnDestroy {
-  @Input() resume!: NewResumeInstance;
+  public resume!: NewResumeInstance;
+
+  public isEditMode = false;
+  public currentEdditedBlock: number | null | 'contacts' | 'head' = null;
+
+  public sheets: Sheet[] = [];
 
   public infoBlocks!: ResumeBlcokItem;
-  public mainDispozition!: Array<keyof ResumeBlcokItem>;
-  public rightDispozition!: Array<keyof ResumeBlcokItem>;
+  private currentDespozition!: SmartDespozition;
 
   BT = BLCOK_TYPE;
 
@@ -28,7 +34,35 @@ export class SmartComponent implements OnInit, OnDestroy {
     new Subject<NewResumeInstance>();
   private subs = new Subscription();
 
-  constructor(private resumeSerive: ResumeService) {}
+  public handdleAllocateBlocksInSheets(side: ZoneType, sheetIndex: number) {
+    const problemBlockKey =
+      this.currentDespozition[side][this.currentDespozition[side].length - 1];
+
+    this.sheets[sheetIndex][side].length =
+      this.sheets[sheetIndex][side].length - 1;
+
+    let nextSheet = this.sheets[sheetIndex + 1];
+
+    if (nextSheet) {
+      this.sheets[sheetIndex + 1][side].push(problemBlockKey);
+    } else {
+      if (!this.sheets[sheetIndex + 1]) {
+        this.sheets = [
+          ...this.sheets,
+          side == 'main'
+            ? { main: [problemBlockKey], right: [], id: Date.now() }
+            : { right: [problemBlockKey], main: [], id: Date.now() },
+        ];
+      }
+    }
+
+    this.cdr.detectChanges();
+  }
+
+  constructor(
+    private resumeSerive: ResumeService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.getResume();
@@ -63,9 +97,11 @@ export class SmartComponent implements OnInit, OnDestroy {
     this.resumeSerive.setResume(newResume);
   }
 
-  public moveBlockUp(index: number, zone: zoneType) {
+  public handleMoveBlockUp(index: number, zone: ZoneType) {
     const currentDispozition =
-      zone == 'mainZone' ? this.mainDispozition : this.rightDispozition;
+      zone == 'main'
+        ? this.currentDespozition.main
+        : this.currentDespozition.right;
 
     [currentDispozition[index], currentDispozition[index - 1]] = [
       currentDispozition[index - 1],
@@ -75,9 +111,11 @@ export class SmartComponent implements OnInit, OnDestroy {
     this.debounceResumeSave.next(this.resume);
   }
 
-  public moveBlockDown(index: number, zone: zoneType) {
+  public handleMoveBlockDown(index: number, zone: ZoneType) {
     const currentDispozition =
-      zone == 'mainZone' ? this.mainDispozition : this.rightDispozition;
+      zone == 'main'
+        ? this.currentDespozition.main
+        : this.currentDespozition.right;
 
     [currentDispozition[index], currentDispozition[index + 1]] = [
       currentDispozition[index + 1],
@@ -87,18 +125,73 @@ export class SmartComponent implements OnInit, OnDestroy {
     this.debounceResumeSave.next(this.resume);
   }
 
-  public deleteBlock(index: number, zone: zoneType) {
+  public handleDeleteBlock(index: number, zone: ZoneType) {
     const currentDispozition =
-      zone == 'mainZone' ? this.mainDispozition : this.rightDispozition;
+      zone == 'main'
+        ? this.currentDespozition.main
+        : this.currentDespozition.right;
 
     currentDispozition.splice(index, 1);
     this.debounceResumeSave.next(this.resume);
   }
 
+  public setCurrentEditedBlock(
+    key: number | 'head' | 'contacts',
+    status: boolean
+  ) {
+    if (this.currentEdditedBlock == key && !status) {
+      this.currentEdditedBlock = null;
+      return;
+    }
+
+    if (this.currentEdditedBlock != key && !status) {
+      return;
+    }
+    this.currentEdditedBlock = status ? key : null;
+  }
+
+  private createSheetsFromDispozition(newDespozition: SmartDespozition) {
+    if (!this.sheets.length) {
+      this.sheets = [
+        {
+          main: [...this.resume.disposition.smart.main],
+          right: [...this.resume.disposition.smart.right],
+          id: Date.now(),
+        },
+      ];
+      this.setCurrentDespozition();
+      return;
+    }
+
+    if (
+      JSON.stringify(this.currentDespozition) == JSON.stringify(newDespozition)
+    ) {
+      this.setCurrentDespozition();
+      return;
+    }
+
+    //left(main) zone changed
+    if (this.currentDespozition.main.length != newDespozition.main.length) {
+      newDespozition.main.length > this.currentDespozition.main.length
+        ? this.addNewBlockToSheet(newDespozition, 'main')
+        : null;
+      this.setCurrentDespozition();
+      return;
+    }
+
+    //right zone changed
+    if (this.currentDespozition.right.length != newDespozition.right.length) {
+      newDespozition.right.length > this.currentDespozition.right.length
+        ? this.addNewBlockToSheet(newDespozition, 'right')
+        : null;
+      this.setCurrentDespozition();
+      return;
+    }
+  }
+
   private initialValues() {
     this.infoBlocks = this.resume.blocks;
-    this.mainDispozition = this.resume.disposition.smart.main;
-    this.rightDispozition = this.resume.disposition.smart.right;
+    this.createSheetsFromDispozition(this.resume.disposition.smart);
   }
 
   private subscribeForDebounceSaveResume() {
@@ -117,6 +210,36 @@ export class SmartComponent implements OnInit, OnDestroy {
       },
     });
   }
+
+  private addNewBlockToSheet(newDespozition: SmartDespozition, side: ZoneType) {
+    const newBlockKey = newDespozition[side][newDespozition[side].length - 1];
+    const lastSheetWithSpace =
+      this.sheets[this.findLastSheetWithSpaceIndex(side)];
+    lastSheetWithSpace[side].push(newBlockKey);
+  }
+
+  private findLastSheetWithSpaceIndex(side: 'main' | 'right'): number {
+    let result!: number;
+
+    if (this.sheets.length == 1) {
+      result = 0;
+    } else {
+      for (let i = this.sheets.length - 1; i >= 0; i--) {
+        if (this.sheets[i][side].length && !result) {
+          result = i;
+        }
+      }
+    }
+    return result;
+  }
+
+  private setCurrentDespozition() {
+    this.currentDespozition = {
+      main: [...this.resume.disposition.smart.main],
+      right: [...this.resume.disposition.smart.right],
+    };
+  }
 }
 
-type zoneType = 'mainZone' | 'rightZone';
+type ZoneType = 'main' | 'right';
+type Sheet = SmartDespozition & { id: number };

@@ -6,10 +6,8 @@ import { DirectivesModule } from 'src/app/shared/directives/directives.module';
 import { IconsModule } from 'src/app/shared/icons/icons.module';
 import { InfoBlockWrapperComponent } from './info-block-wrapper/info-block-wrapper.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { LayoutActiveElementsModule } from 'src/app/shared/layout-active-elements/layout-active-elements.module';
 

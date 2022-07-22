@@ -35,7 +35,7 @@ export class TemplatesComponent implements OnInit, OnDestroy {
       this.resumeService.getResume().subscribe({
         next: (resume) => {
           this.resume = resume;
-          console.log(1, this.resume);
+          console.log('newResume', this.resume);
           this.setTemplateColor();
           this.setTemolateFont();
         },

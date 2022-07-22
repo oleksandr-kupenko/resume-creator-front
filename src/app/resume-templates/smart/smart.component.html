@@ -1,18 +1,23 @@
 <div class="smart-template">
-  <app-a4-wrapper>
+  <div class="edit-overlay" [class.active]="!!currentEdditedBlock"></div>
+  <app-a4-wrapper *ngFor="let sheet of sheets; let idx = index">
     <app-smart-template-header
+      *ngIf="idx == 0"
       [data]="resume.head"
-      (changeHeadInfo)="handleChangeHeadInfo($event)"
+      (onChangeHeadInfo)="handleChangeHeadInfo($event)"
+      (onChangeEditMode)="setCurrentEditedBlock('head', $event)"
     ></app-smart-template-header>
     <app-smart-contacts-list
+      *ngIf="idx == 0"
       [data]="resume.contacts"
-      (changeContacts)="handleChangeContacts($event)"
+      (onChangeContacts)="handleChangeContacts($event)"
+      (onChangeEditMode)="setCurrentEditedBlock('contacts', $event)"
     ></app-smart-contacts-list>
     <div class="smart-template__body">
       <div class="smart-template__body--left">
         <ng-container
           *ngFor="
-            let key of mainDispozition;
+            let key of sheet.main;
             let first = first;
             let last = last;
             let idx = index
@@ -22,9 +27,10 @@
             [contextForHimself]="infoBlockContent"
             [isFirst]="first"
             [isLast]="last"
-            (moveBlockUp)="moveBlockUp(idx, 'mainZone')"
-            (moveBlockDown)="moveBlockDown(idx, 'mainZone')"
-            (deleteBlock)="deleteBlock(idx, 'mainZone')"
+            (onMoveBlockUp)="handleMoveBlockUp(idx, 'main')"
+            (onMoveBlockDown)="handleMoveBlockDown(idx, 'main')"
+            (onDeleteBlock)="handleDeleteBlock(idx, 'main')"
+            (onChangeEditMode)="setCurrentEditedBlock(key, $event)"
           >
             <ng-template #infoBlockContent let-isEditMode="isEditMode">
               <app-info-block
@@ -35,12 +41,17 @@
             </ng-template>
           </app-info-block-wrapper>
         </ng-container>
+        <div
+          class="checking-block"
+          checkNoHeigh
+          (onRanOutOfSpace)="handdleAllocateBlocksInSheets('main', idx)"
+        ></div>
       </div>
 
       <div class="smart-template__body--right">
         <ng-container
           *ngFor="
-            let key of rightDispozition;
+            let key of sheet.right;
             let first = first;
             let last = last;
             let idx = index
@@ -50,9 +61,10 @@
             [contextForHimself]="infoBlockContent"
             [isFirst]="first"
             [isLast]="last"
-            (moveBlockUp)="moveBlockUp(idx, 'rightZone')"
-            (moveBlockDown)="moveBlockDown(idx, 'rightZone')"
-            (deleteBlock)="deleteBlock(idx, 'rightZone')"
+            (onMoveBlockUp)="handleMoveBlockUp(idx, 'right')"
+            (onMoveBlockDown)="handleMoveBlockDown(idx, 'right')"
+            (onDeleteBlock)="handleDeleteBlock(idx, 'right')"
+            (onChangeEditMode)="setCurrentEditedBlock(key, $event)"
           >
             <ng-template #infoBlockContent let-isEditMode="isEditMode">
               <app-info-block
@@ -63,6 +75,11 @@
             </ng-template>
           </app-info-block-wrapper>
         </ng-container>
+        <div
+          class="checking-block"
+          checkNoHeigh
+          (onRanOutOfSpace)="handdleAllocateBlocksInSheets('right', idx)"
+        ></div>
       </div>
     </div>
   </app-a4-wrapper>

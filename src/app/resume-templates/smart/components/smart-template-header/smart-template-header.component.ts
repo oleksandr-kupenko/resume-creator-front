@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Sanitizer } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { HeadInfo } from 'src/app/resume-templates/resume.interface';
 import { DebounceSaveDirective } from 'src/app/resume-templates/debounce-save-resume.base';
@@ -13,6 +13,7 @@ export class SmartTemplateHeaderComponent
   implements OnInit
 {
   @Input() data!: HeadInfo;
+  @Output() onChangeEditMode = new EventEmitter<boolean>();
 
   public isEditMode = false;
 
@@ -64,6 +65,17 @@ export class SmartTemplateHeaderComponent
       }
       this.imageToBase64(event.target.files[0]);
       this.sendUpdateDataWithDebounce(this.data);
+    }
+  }
+
+  public handleChangeIsEditModeStatus(status: boolean) {
+    if (this.isEditMode) {
+      this.onChangeEditMode.emit(status);
+    }
+
+    this.isEditMode = status;
+    if (status || this.isEditMode) {
+      this.onChangeEditMode.emit(status);
     }
   }
 

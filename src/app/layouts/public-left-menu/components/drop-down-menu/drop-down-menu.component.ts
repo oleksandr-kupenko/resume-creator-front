@@ -145,6 +145,7 @@ export class DropDownMenuComponent implements OnInit {
     BLCOK_TYPE.education,
     BLCOK_TYPE.experience,
     BLCOK_TYPE.certificates,
+    BLCOK_TYPE.summary,
   ];
   private rightSmartDispozitionTypes = [
     BLCOK_TYPE.profskills,
@@ -171,11 +172,12 @@ export class DropDownMenuComponent implements OnInit {
   }
 
   private addKeyToSmartDispozition(newKey: number, sectionType: BLCOK_TYPE) {
+    //left column
     if (this.mainSmartDispozitionTypes.includes(sectionType)) {
       this.resume.disposition.smart.main.push(newKey);
       return;
     }
-
+    //right column
     if (this.rightSmartDispozitionTypes.includes(sectionType)) {
       this.resume.disposition.smart.right.push(newKey);
     }

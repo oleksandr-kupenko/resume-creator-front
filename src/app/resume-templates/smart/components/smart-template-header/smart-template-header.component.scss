@@ -3,6 +3,7 @@
 :host {
   display: block;
   margin: 0 1.25rem;
+  max-height: 23%;
 
   .smart-header {
     position: relative;
@@ -11,6 +12,14 @@
     padding: 1.125rem 0.5625rem 1.125rem 1.875rem;
     border: 0.0625rem solid transparent;
     transition: border-color 0.1s ease-in-out;
+    background-color: white;
+
+    &.edit {
+      box-shadow: 0 0 0.75rem rgb(0 0 0 / 12%);
+      z-index: 11;
+      border-radius: 0.25rem;
+    }
+
     &:hover {
       border: 0.0625rem solid #3596f3;
       border-radius: 0.25rem;

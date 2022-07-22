@@ -1,9 +1,10 @@
 <section
   class="smart-header"
+  [class.edit]="isEditMode"
   appBackDrop
   [class.without-avatar]="!isAvatar"
-  (click)="isEditMode = true"
-  (clickOutside)="this.isEditMode = false"
+  (click)="handleChangeIsEditModeStatus(true)"
+  (clickOutside)="handleChangeIsEditModeStatus(false)"
 >
   <div *ngIf="isAvatar" class="avatar">
     <button

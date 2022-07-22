@@ -1,4 +1,11 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 
 import {
   Contacts,
@@ -17,6 +24,7 @@ export class SmartContactsListComponent
   implements OnInit
 {
   @Input() data!: Contacts;
+  @Output() onChangeEditMode = new EventEmitter<boolean>();
 
   contactsList!: ContactsItem[];
 
@@ -61,7 +69,14 @@ export class SmartContactsListComponent
     this.sendUpdateDataWithDebounce(this.data);
   }
 
-  handleOpenEditMode() {
-    this.isEditMode = true;
+  public handleChangeIsEditModeStatus(status: boolean) {
+    if (this.isEditMode) {
+      this.onChangeEditMode.emit(status);
+    }
+
+    this.isEditMode = status;
+    if (status || this.isEditMode) {
+      this.onChangeEditMode.emit(status);
+    }
   }
 }

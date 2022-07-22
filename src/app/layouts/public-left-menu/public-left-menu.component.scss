@@ -12,7 +12,7 @@
     width: 60px;
     background-color: $menu-middle-grey;
 
-    @include bp-1024 {
+    @include bp-1100 {
       width: 40px;
     }
 
@@ -48,7 +48,7 @@
         background: $menu-middle-grey;
       }
 
-      @include bp-1024 {
+      @include bp-1100 {
         height: 60px;
       }
 
@@ -56,7 +56,7 @@
         max-width: 30px;
         transition: 0.2s;
 
-        @include bp-1024 {
+        @include bp-1100 {
           width: 20px;
         }
       }

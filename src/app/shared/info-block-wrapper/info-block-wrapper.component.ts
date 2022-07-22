@@ -23,9 +23,10 @@ export class InfoBlockWrapperComponent implements OnInit {
   @Input() contextForHimself!: TemplateRef<any>;
   @Input() isLast = false;
   @Input() isFirst = false;
-  @Output() moveBlockUp = new EventEmitter<void>();
-  @Output() moveBlockDown = new EventEmitter<void>();
-  @Output() deleteBlock = new EventEmitter<void>();
+  @Output() onMoveBlockUp = new EventEmitter<void>();
+  @Output() onMoveBlockDown = new EventEmitter<void>();
+  @Output() onDeleteBlock = new EventEmitter<void>();
+  @Output() onChangeEditMode = new EventEmitter<boolean>();
 
   public isEditMode = false;
 
@@ -36,4 +37,15 @@ export class InfoBlockWrapperComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  public handleChangeIsEditModeStatus(status: boolean) {
+    if (this.isEditMode) {
+      this.onChangeEditMode.emit(status);
+    }
+
+    this.isEditMode = status;
+    if (status || this.isEditMode) {
+      this.onChangeEditMode.emit(status);
+    }
+  }
 }

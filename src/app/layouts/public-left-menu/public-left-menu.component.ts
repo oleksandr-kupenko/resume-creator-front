@@ -54,7 +54,7 @@ export class PublicLeftMenuComponent implements OnInit {
   constructor(private resumeService: ResumeService) {}
 
   ngOnInit(): void {
-    this.initialiseReumeData();
+    this.initialiseResumeData();
   }
 
   public handleOpenSubMenu(event: Event, index: number) {
@@ -81,7 +81,7 @@ export class PublicLeftMenuComponent implements OnInit {
     this.resumeService.setResume(this.currentResume);
   }
 
-  private initialiseReumeData() {
+  private initialiseResumeData() {
     this.resumeService
       .getResume()
       .pipe(take(1))

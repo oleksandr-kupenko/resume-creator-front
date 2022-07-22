@@ -1,8 +1,16 @@
-.a4-wrapper {
+@import "core/mixins";
+
+:host {
+  display: flex;
+  flex-direction: column;
   width: 61.875rem;
   min-height: 90rem;
   background-color: white;
   margin: 0 auto;
-  box-shadow: 0 0 3px rgb(0 0 0 / 10%);
+  box-shadow: 0 0 0.188rem rgb(0 0 0 / 10%);
   padding: 2.25rem 1.45rem 2.625rem;
+
+  @include bp-1100 {
+    min-height: calc(90rem + 1vh);
+  }
 }

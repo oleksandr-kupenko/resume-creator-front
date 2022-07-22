@@ -60,12 +60,14 @@ export interface NewResumeInstance {
   contacts: Contacts;
   blocks: ResumeBlcokItem & { next: number };
   disposition: {
-    smart: {
-      main: Array<keyof ResumeBlcokItem>;
-      right: Array<keyof ResumeBlcokItem>;
-    };
+    smart: SmartDespozition;
   };
   custom: { color: TEMPLATE_COLOR; font: TEMPLATE_FONT };
+}
+
+export interface SmartDespozition {
+  main: Array<keyof ResumeBlcokItem>;
+  right: Array<keyof ResumeBlcokItem>;
 }
 
 export enum TEMPLATE_COLOR {
