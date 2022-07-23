@@ -37,4 +37,8 @@ export class AboutBodyComponent
     this.data.data.about = event.target.innerHTML;
     this.sendUpdateDataWithDebounce(this.data);
   }
+
+  test() {
+    console.log('about');
+  }
 }

@@ -1,0 +1,9 @@
+//it's need to correct working edit mode under placeholder text
+.about-text-wrapper {
+  min-height: 40px;
+  width: 100%;
+
+  &.edit {
+    min-height: auto;
+  }
+}

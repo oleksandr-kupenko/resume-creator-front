@@ -21,7 +21,7 @@ export class SmartComponent implements OnInit, OnDestroy {
   public resume!: NewResumeInstance;
 
   public isEditMode = false;
-  public currentEdditedBlock: number | null | 'contacts' | 'head' = null;
+  public currentEdditedBlockKey: number | null | 'contacts' | 'head' = null;
 
   public sheets: Sheet[] = [];
 
@@ -97,57 +97,118 @@ export class SmartComponent implements OnInit, OnDestroy {
     this.resumeSerive.setResume(newResume);
   }
 
-  public handleMoveBlockUp(index: number, zone: ZoneType) {
-    const currentDispozition =
-      zone == 'main'
-        ? this.currentDespozition.main
-        : this.currentDespozition.right;
+  public handleMoveBlockUp(index: number, sheetIndex: number, side: ZoneType) {
+    const blockKey = this.currentDespozition[side][index];
 
-    [currentDispozition[index], currentDispozition[index - 1]] = [
-      currentDispozition[index - 1],
-      currentDispozition[index],
+    const changedArrList = [
+      this.currentDespozition[side],
+      this.resume.disposition.smart[side],
     ];
+    changedArrList.forEach((zone) => {
+      [zone[index], zone[index - 1]] = [zone[index - 1], zone[index]];
+    });
+
+    this.swapBlocksInSheetsUp(blockKey, sheetIndex, side);
 
     this.debounceResumeSave.next(this.resume);
   }
 
-  public handleMoveBlockDown(index: number, zone: ZoneType) {
-    const currentDispozition =
-      zone == 'main'
-        ? this.currentDespozition.main
-        : this.currentDespozition.right;
+  private swapBlocksInSheetsUp(
+    blockKey: number,
+    sheetIndex: number,
+    side: ZoneType
+  ) {
+    let currentSheetZone = this.sheets[sheetIndex][side];
+    const sheetBlockIndex = currentSheetZone.findIndex((b) => b == blockKey);
 
-    [currentDispozition[index], currentDispozition[index + 1]] = [
-      currentDispozition[index + 1],
-      currentDispozition[index],
+    if (sheetBlockIndex > 0) {
+      [
+        currentSheetZone[sheetBlockIndex],
+        currentSheetZone[sheetBlockIndex - 1],
+      ] = [
+        currentSheetZone[sheetBlockIndex - 1],
+        currentSheetZone[sheetBlockIndex],
+      ];
+    }
+  }
+
+  private swapBlocksInSheetsDown(
+    blockKey: number,
+    sheetIndex: number,
+    side: ZoneType
+  ) {
+    let currentSheetZone = this.sheets[sheetIndex][side];
+    const sheetBlockIndex = currentSheetZone.findIndex((b) => b == blockKey);
+
+    if (sheetBlockIndex < currentSheetZone.length - 1) {
+      [
+        currentSheetZone[sheetBlockIndex],
+        currentSheetZone[sheetBlockIndex + 1],
+      ] = [
+        currentSheetZone[sheetBlockIndex + 1],
+        currentSheetZone[sheetBlockIndex],
+      ];
+      return;
+    }
+
+    if (
+      sheetBlockIndex == currentSheetZone.length - 1 &&
+      this.sheets[sheetIndex + 1]
+    ) {
+      let nextSheetZone = this.sheets[sheetIndex + 1][side];
+      const nextBlockKey = nextSheetZone[0];
+      currentSheetZone[currentSheetZone.length - 1] = nextBlockKey;
+      nextSheetZone[0] = blockKey;
+      this.currentEdditedBlockKey = blockKey;
+      return;
+    }
+  }
+
+  public handleMoveBlockDown(
+    index: number,
+    sheetIndex: number,
+    side: ZoneType
+  ) {
+    const blockKey = this.currentDespozition[side][index];
+    const changedArrList = [
+      this.currentDespozition[side],
+      this.resume.disposition.smart[side],
     ];
+    changedArrList.forEach((zone) => {
+      [zone[index], zone[index + 1]] = [zone[index + 1], zone[index]];
+    });
+
+    this.swapBlocksInSheetsDown(blockKey, sheetIndex, side);
 
     this.debounceResumeSave.next(this.resume);
   }
 
-  public handleDeleteBlock(index: number, zone: ZoneType) {
-    const currentDispozition =
-      zone == 'main'
-        ? this.currentDespozition.main
-        : this.currentDespozition.right;
+  public handleDeleteBlock(index: number, sheetIndex: number, zone: ZoneType) {
+    const keyDeletedBlock = this.currentDespozition[zone][index];
 
-    currentDispozition.splice(index, 1);
+    this.sheets[sheetIndex][zone] = this.sheets[sheetIndex][zone].filter(
+      (blockKey) => blockKey != keyDeletedBlock
+    );
+    this.currentDespozition[zone].splice(index, 1);
+    this.resume.disposition.smart[zone].splice(index, 1);
     this.debounceResumeSave.next(this.resume);
+    this.currentEdditedBlockKey = null;
   }
 
   public setCurrentEditedBlock(
     key: number | 'head' | 'contacts',
     status: boolean
   ) {
-    if (this.currentEdditedBlock == key && !status) {
-      this.currentEdditedBlock = null;
+    console.log('click');
+    if (this.currentEdditedBlockKey == key && !status) {
+      this.currentEdditedBlockKey = null;
       return;
     }
 
-    if (this.currentEdditedBlock != key && !status) {
+    if (this.currentEdditedBlockKey != key && !status) {
       return;
     }
-    this.currentEdditedBlock = status ? key : null;
+    this.currentEdditedBlockKey = status ? key : null;
   }
 
   private createSheetsFromDispozition(newDespozition: SmartDespozition) {
@@ -170,20 +231,29 @@ export class SmartComponent implements OnInit, OnDestroy {
       return;
     }
 
-    //left(main) zone changed
+    //left(main) zone add or delete
     if (this.currentDespozition.main.length != newDespozition.main.length) {
+      console.log(
+        'current',
+        this.currentDespozition.main.length,
+        this.currentDespozition.main
+      );
+      console.log('new', newDespozition.main.length, newDespozition.main);
+      console.log(
+        newDespozition.main.length > this.currentDespozition.main.length
+      );
       newDespozition.main.length > this.currentDespozition.main.length
         ? this.addNewBlockToSheet(newDespozition, 'main')
-        : null;
+        : this.deleteBlockFromSheet(newDespozition, 'main');
       this.setCurrentDespozition();
       return;
     }
 
-    //right zone changed
+    //right zone add or delete
     if (this.currentDespozition.right.length != newDespozition.right.length) {
       newDespozition.right.length > this.currentDespozition.right.length
         ? this.addNewBlockToSheet(newDespozition, 'right')
-        : null;
+        : this.deleteBlockFromSheet(newDespozition, 'right');
       this.setCurrentDespozition();
       return;
     }
@@ -212,10 +282,29 @@ export class SmartComponent implements OnInit, OnDestroy {
   }
 
   private addNewBlockToSheet(newDespozition: SmartDespozition, side: ZoneType) {
+    console.log('bad');
     const newBlockKey = newDespozition[side][newDespozition[side].length - 1];
     const lastSheetWithSpace =
       this.sheets[this.findLastSheetWithSpaceIndex(side)];
     lastSheetWithSpace[side].push(newBlockKey);
+  }
+
+  private deleteBlockFromSheet(
+    newDespozition: SmartDespozition,
+    side: ZoneType
+  ) {
+    console.log('ok');
+    let deletedBlockKey!: number;
+    this.currentDespozition[side].forEach((block, index) => {
+      if (!newDespozition[side].includes(block)) {
+        deletedBlockKey = block;
+      }
+    });
+    this.sheets.forEach((sheet, index) => {
+      if (sheet[side].includes(deletedBlockKey)) {
+        delete sheet[side][deletedBlockKey];
+      }
+    });
   }
 
   private findLastSheetWithSpaceIndex(side: 'main' | 'right'): number {

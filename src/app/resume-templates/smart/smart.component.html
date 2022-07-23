@@ -1,14 +1,14 @@
 <div class="smart-template">
-  <div class="edit-overlay" [class.active]="!!currentEdditedBlock"></div>
-  <app-a4-wrapper *ngFor="let sheet of sheets; let idx = index">
+  <div class="edit-overlay" [class.active]="!!currentEdditedBlockKey"></div>
+  <app-a4-wrapper *ngFor="let sheet of sheets; let sheetIndex = index">
     <app-smart-template-header
-      *ngIf="idx == 0"
+      *ngIf="sheetIndex == 0"
       [data]="resume.head"
       (onChangeHeadInfo)="handleChangeHeadInfo($event)"
       (onChangeEditMode)="setCurrentEditedBlock('head', $event)"
     ></app-smart-template-header>
     <app-smart-contacts-list
-      *ngIf="idx == 0"
+      *ngIf="sheetIndex == 0"
       [data]="resume.contacts"
       (onChangeContacts)="handleChangeContacts($event)"
       (onChangeEditMode)="setCurrentEditedBlock('contacts', $event)"
@@ -20,16 +20,18 @@
             let key of sheet.main;
             let first = first;
             let last = last;
-            let idx = index
+            let blockIndex = index
           "
         >
           <app-info-block-wrapper
             [contextForHimself]="infoBlockContent"
             [isFirst]="first"
             [isLast]="last"
-            (onMoveBlockUp)="handleMoveBlockUp(idx, 'main')"
-            (onMoveBlockDown)="handleMoveBlockDown(idx, 'main')"
-            (onDeleteBlock)="handleDeleteBlock(idx, 'main')"
+            (onMoveBlockUp)="handleMoveBlockUp(blockIndex, sheetIndex, 'main')"
+            (onMoveBlockDown)="
+              handleMoveBlockDown(blockIndex, sheetIndex, 'main')
+            "
+            (onDeleteBlock)="handleDeleteBlock(blockIndex, sheetIndex, 'main')"
             (onChangeEditMode)="setCurrentEditedBlock(key, $event)"
           >
             <ng-template #infoBlockContent let-isEditMode="isEditMode">
@@ -44,7 +46,7 @@
         <div
           class="checking-block"
           checkNoHeigh
-          (onRanOutOfSpace)="handdleAllocateBlocksInSheets('main', idx)"
+          (onRanOutOfSpace)="handdleAllocateBlocksInSheets('main', sheetIndex)"
         ></div>
       </div>
 
@@ -54,22 +56,25 @@
             let key of sheet.right;
             let first = first;
             let last = last;
-            let idx = index
+            let blockIndex = index
           "
         >
           <app-info-block-wrapper
             [contextForHimself]="infoBlockContent"
-            [isFirst]="first"
-            [isLast]="last"
-            (onMoveBlockUp)="handleMoveBlockUp(idx, 'right')"
-            (onMoveBlockDown)="handleMoveBlockDown(idx, 'right')"
-            (onDeleteBlock)="handleDeleteBlock(idx, 'right')"
+            [isFirst]="first && !!!sheets[sheetIndex - 1]"
+            [isLast]="last && !!!sheets[sheetIndex + 1]"
+            [isEditMode]="currentEdditedBlockKey == key"
+            (onMoveBlockUp)="handleMoveBlockUp(blockIndex, sheetIndex, 'right')"
+            (onMoveBlockDown)="
+              handleMoveBlockDown(blockIndex, sheetIndex, 'right')
+            "
+            (onDeleteBlock)="handleDeleteBlock(blockIndex, sheetIndex, 'right')"
             (onChangeEditMode)="setCurrentEditedBlock(key, $event)"
           >
             <ng-template #infoBlockContent let-isEditMode="isEditMode">
               <app-info-block
                 [infoBlock]="infoBlocks[key]"
-                [isEditMode]="isEditMode"
+                [isEditMode]="isEditMode || currentEdditedBlockKey == key"
                 (blockChange)="handleSetBlockChanges($event, key)"
               ></app-info-block>
             </ng-template>
@@ -78,7 +83,7 @@
         <div
           class="checking-block"
           checkNoHeigh
-          (onRanOutOfSpace)="handdleAllocateBlocksInSheets('right', idx)"
+          (onRanOutOfSpace)="handdleAllocateBlocksInSheets('right', sheetIndex)"
         ></div>
       </div>
     </div>
